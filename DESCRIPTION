@@ -1,0 +1,10 @@
+Package: HeartFailureTrajectoryCostStudy
+Type: Package
+Title: This study is created for showcasing the possibilities offered by R-packages Cohort2Trajectory and TrajectoryMarkovAnalysis. It will replicate a heart failure study published by Thokala et al in 2021 using OHDSI OMOP CDM data. 
+Version: 0.1.0
+Author: Markus Haug
+Maintainer: Markus Haug <haugmarkus@protonmail.com>
+Description: TODO
+License: Apache 2.0
+Encoding: UTF-8
+LazyData: true
