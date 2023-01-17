@@ -4,19 +4,19 @@
 #
 ################################################################################
 
-# devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "never")  # Run for installing release v1.1.1
-# devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "never") # Run for installing release v1.0.2
+# devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
+# devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "always") # Run for installing release v1.0.2
 
+library(HeartFailureTrajectoryCostStudy)
 ################################################################################
 #
 # Study settings
 #
 ################################################################################
 
-studyName <- "HeartFailureRITAMAITT" # TODO
+studyName <- "HeartFailure" # TODO
 pathToResults <- getwd()   # TODO
-databaseDescription <- "Valdkondliku teadus- ja arendustegevuse tugevdamise (RITA)
-tegevus"
+databaseDescription <- "A cool database ..." # TODO
 
 ################################################################################
 #
@@ -26,15 +26,19 @@ tegevus"
 
 pathToDriver <- './Drivers'
 dbms <- "postgresql" #TODO
-user <- 'markus' #TODO
+user <- '' #TODO
 pw <- "" #TODO
-server <- 'localhost/maitt' #TODO
-port <- '63333' #TODO
+server <- 'localhost/database' #TODO
+port <- '5432' #TODO
 
-cdmSchema <- "ohdsi_cdm_202206" #TODO # Schema which contains the OHDSI Common Data Model
-cdmTmpSchema <- "user_markus" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
-cdmResultsSchema <- "ohdsi_results_202206" #TODO # Schema which will contain the final results
-baseUrl <- "http://localhost:63344/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
+cdmSchema <-
+  "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
+cdmTmpSchema <-
+  "ohdsi_tmp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+cdmResultsSchema <-
+  "ohdsi_results" #TODO # Schema which will contain the final results
+baseUrl <-
+  "http://localhost:8080/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
 
 ################################################################################
 #
@@ -52,8 +56,7 @@ connectionDetails <-
     pathToDriver = pathToDriver
   )
 
-conn <- DatabaseConnector::connect(connectionDetails)
-
+connection <- DatabaseConnector::connect(connectionDetails)
 
 ################################################################################
 #
@@ -61,61 +64,16 @@ conn <- DatabaseConnector::connect(connectionDetails)
 #
 ################################################################################
 
-
-stateCohortLabels = c("HF0", "HF1", "HF2", "HF3", "HFD")
-allowedStatesList = Cohort2Trajectory::createStateList(stateCohortLabels) # Creates a list allowing all transitions from each state
-allowedStatesList = Cohort2Trajectory::removeListVectorEl(stateList = allowedStatesList, transitionHead = "HFD", transitionTail = "HF0")
-allowedStatesList = Cohort2Trajectory::removeListVectorEl(stateList = allowedStatesList, transitionHead = "HFD", transitionTail = "HF1")
-allowedStatesList = Cohort2Trajectory::removeListVectorEl(stateList = allowedStatesList, transitionHead = "HFD", transitionTail = "HF2")
-allowedStatesList = Cohort2Trajectory::removeListVectorEl(stateList = allowedStatesList, transitionHead = "HFD", transitionTail = "HF3")
-
-Cohort2Trajectory::Cohort2Trajectory(
+executeHeartFailureTrajectoryCostStudy(
   dbms = dbms,
-  connection = conn,
+  connection = connection,
   cdmSchema = cdmSchema,
   cdmTmpSchema = cdmTmpSchema,
   cdmResultsSchema = cdmResultsSchema,
   studyName = studyName,
-  runSavedStudy = TRUE,
   pathToResults = pathToResults,
-  allowedStatesList = allowedStatesList
+  databaseDescription = databaseDescription
 )
-
-trajectoryData <- readr::read_csv(paste(pathToResults,"/tmp/datasets/",studyName,"patientDataPriority.csv", sep = ""))
-
-################################################################################
-#
-# Compute matrices and query cost information
-#
-################################################################################
-
-modelType <- "discrete" # "discrete" or "continuous"
-excludedStates <- NULL
-
-costDomains <- c(
-               'Drug',
-               'Visit',
-               'Procedure',
-               'Device',
-               'Measurement',
-               'Observation',
-               'Specimen'
-               )
-
-TrajectoryMarkovAnalysis::TrajectoryMarkovAnalysis(
- conn,
- dbms,
- cdmSchema,
- cdmTmpSchema,
- inputData = trajectoryData,
- modelType,
- studyName,
- pathToResults,
- excludedStates,
- costDomains,
- databaseDescription
-)
-
 
 ################################################################################
 #
@@ -123,6 +81,5 @@ TrajectoryMarkovAnalysis::TrajectoryMarkovAnalysis(
 #
 ################################################################################
 
-# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovanalysis package.
-
+# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovanalysis pack
 runDashboard(pathToResults = pathToResults)

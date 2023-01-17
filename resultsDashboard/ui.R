@@ -26,7 +26,8 @@ header <-
 sidebar <- shinydashboard::dashboardSidebar(
   shinydashboard::sidebarMenu(
     shinydashboard::menuItem("Description", tabName = "description", icon = icon("home")),
-    shinydashboard::menuItem("Matrixes", tabName = "matrixes", icon = icon("square-o")),
+    shinydashboard::menuItem("Matrixes", tabName = "matrixes", icon = icon("square")),
+    shinydashboard::menuItem("Demographics", tabName = "demographics", icon = icon("address-book")),
     shinydashboard::menuItem("Sunburst plots", tabName = "sunbursts", icon = icon("sun")),
     shinydashboard::menuItem("State costs", tabName = "statecosts", icon = icon("bar-chart"))
   ),
@@ -47,19 +48,20 @@ body <- shinydashboard::dashboardBody(
       shinycssloaders::withSpinner(shiny::htmlOutput("databaseList"))
     ),
     shinydashboard::tabItem(
+      tabName = "demographics",
+      shinycssloaders::withSpinner(shiny::dataTableOutput("demographicTable"))
+    ),
+    shinydashboard::tabItem(
       tabName = "matrixes",
-      shinycssloaders::withSpinner(shiny::plotOutput("matrixHeatmaps"))
+      shinycssloaders::withSpinner(shiny::uiOutput("matrixHeatmaps"))
     ),
     shinydashboard::tabItem(
       tabName = "sunbursts",
       shinycssloaders::withSpinner(shiny::uiOutput("sunburstPlots")),
-      # shinycssloaders::withSpinner(sunburstR::sunburstOutput("sunburstPlots", width = "100%", height = "800px"))
     ),
     shinydashboard::tabItem(
       tabName = "statecosts",
       shiny::tabsetPanel(
-      # tabName = "statecosts",
-      # shiny::tabsetPanel(
         type = "tabs",
         shiny::tabPanel(
           "State cost statistics",
@@ -72,12 +74,10 @@ body <- shinydashboard::dashboardBody(
           shinycssloaders::withSpinner(
             shiny::plotOutput("trajectoryStartPlots", width = "100%", height = "1000px")
           ),
-          shinycssloaders::withSpinner(
-            shiny::plotOutput("costDistPlot", width = "100%", height = "1000px")
-          )
+          # shinycssloaders::withSpinner(
+          #   shiny::plotOutput("costDistPlot", width = "100%", height = "1000px")
+          # )
         )
-      #   # shinycssloaders::withSpinner(sunburstR::sunburstOutput("sunburstPlots", width = "100%", height = "800px"))
-      # )
       )
     )
   )
