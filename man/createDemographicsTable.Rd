@@ -14,3 +14,4 @@ createDemographicsTable(pathToResults, studyName)
 \description{
 This function creates demographic data frame for database
 }
+\keyword{internal}

@@ -29,7 +29,7 @@ sidebar <- shinydashboard::dashboardSidebar(
     shinydashboard::menuItem("Matrixes", tabName = "matrixes", icon = icon("square")),
     shinydashboard::menuItem("Demographics", tabName = "demographics", icon = icon("address-book")),
     shinydashboard::menuItem("Sunburst plots", tabName = "sunbursts", icon = icon("sun")),
-    shinydashboard::menuItem("State costs", tabName = "statecosts", icon = icon("bar-chart"))
+    shinydashboard::menuItem("Financial analysis", tabName = "statecosts", icon = icon("bar-chart"))
   ),
   shiny::uiOutput("activeDatabases")
 )
@@ -73,10 +73,16 @@ body <- shinydashboard::dashboardBody(
           "Trajectory head statistics",
           shinycssloaders::withSpinner(
             shiny::plotOutput("trajectoryStartPlots", width = "100%", height = "1000px")
-          ),
+          )
           # shinycssloaders::withSpinner(
           #   shiny::plotOutput("costDistPlot", width = "100%", height = "1000px")
           # )
+        ),
+        shiny::tabPanel(
+          "Cost effectiveness analysis",
+          shinycssloaders::withSpinner(
+            shiny::dataTableOutput("monetaryTable")
+          )
         )
       )
     )

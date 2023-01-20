@@ -96,6 +96,38 @@ server <- function(input, output, session) {
         return(data)
       })
 
+      # Creating monetary datatable
+
+      output$monetaryTable <- renderDataTable({
+        data <-
+          data.frame(
+            c(
+              "Standard of care (€)",
+              "Alternative care (€)",
+              "ICER (€/QALY)"
+            )
+          )
+        rownames(data) <- 1:nrow(data)
+        colnames(data) <- c("DESCRIPTIVE FEATURE")
+        for (db in input$activeDatabases) {
+          dbTable <- readRDS(
+            paste(
+              pathToResults,
+              "/results/",
+              db,
+              '/',
+              db,
+              "monetaryData.rdata",
+              sep = ""
+            )
+          )
+          colnames.tmp <- c(colnames(data), db)
+          data <- cbind(data, dbTable[, 2])
+          colnames(data) <- colnames.tmp
+        }
+        return(data)
+      })
+
       # Creating plots of the matrices
 
       for (db in input$activeDatabases) {

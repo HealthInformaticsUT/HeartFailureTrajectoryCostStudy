@@ -14,3 +14,4 @@ getMatrixPlot(db, pathToResults)
 \description{
 This function a heatmap plot from the transition matrix
 }
+\keyword{internal}

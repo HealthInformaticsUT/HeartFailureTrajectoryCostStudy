@@ -18,3 +18,4 @@ This function creates the combined state cost plots
 
 This function creates the combined trajectory cost plots in relation with patients' starting state
 }
+\keyword{internal}

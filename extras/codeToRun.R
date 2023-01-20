@@ -6,7 +6,7 @@
 
 # devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
 # devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "always") # Run for installing release v1.0.2
-
+devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy")
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
 #

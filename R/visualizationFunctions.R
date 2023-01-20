@@ -8,7 +8,7 @@
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 getMatrixPlot <- function(db, pathToResults) {
   M <- get(load(
     paste(
@@ -52,7 +52,7 @@ getMatrixPlot <- function(db, pathToResults) {
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 
 getSunburstPlot <- function(db, pathToResults) {
   plot  <- readRDS(paste(
@@ -90,7 +90,7 @@ getSunburstPlot <- function(db, pathToResults) {
 #'
 #' @param databases Names of the studies selected
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 
 getStateCostBarPlot <- function(databases, pathToResults) {
   costData <- data.frame()
@@ -240,7 +240,7 @@ getStateCostBarPlot <- function(databases, pathToResults) {
 #'
 #' @param databases Names of the studies selected
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 
 getStateCostBarPlot <- function(databases, pathToResults) {
 startData <- data.frame()

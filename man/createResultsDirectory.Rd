@@ -14,3 +14,4 @@ createResultsDirectory(db, pathToResults)
 \description{
 This function creates a "results" directory.
 }
+\keyword{internal}

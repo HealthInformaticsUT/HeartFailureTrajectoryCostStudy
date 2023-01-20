@@ -14,3 +14,4 @@ standardizeSunburstPlot(db, pathToResults)
 \description{
 This function standardizes the sunburstplot, conf for same colors
 }
+\keyword{internal}

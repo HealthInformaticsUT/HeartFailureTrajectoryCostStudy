@@ -106,6 +106,8 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
 
   standardizeSunburstPlot(db = studyName, pathToResults = pathToResults)
 
+  monetaryAnalysis(pathToResults = pathToResults, studyName = studyName)
+
   createResultsDirectory(db = studyName, pathToResults = pathToResults)
 
 ParallelLogger::logInfo("The execution of the study has been successfully completed!")
@@ -122,7 +124,7 @@ ParallelLogger::logInfo("The execution of the study has been successfully comple
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 #'
 createResultsDirectory <- function(db, pathToResults){
   dir.create(paste(pathToResults,"/results",sep = ""))
@@ -136,6 +138,7 @@ createResultsDirectory <- function(db, pathToResults){
                                        paste(db,"_first_state_statistics.txt",sep=""),
                                        paste(db,"_state_statistics.txt",sep=""),
                                        paste(db,"demographicData.rdata",sep=""),
+                                       paste(db,"monetaryData.rdata",sep=""),
                                        paste(db,"sunburstPlot.rdata",sep="")), sep = "/")
 
   file.copy(list.of.files, results.folder)
@@ -152,7 +155,7 @@ createResultsDirectory <- function(db, pathToResults){
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
-#' @internal
+#' @keywords internal
 #'
 standardizeSunburstPlot <- function(db, pathToResults) {
   sunburstDetails  <- get(load(paste(
@@ -191,4 +194,5 @@ standardizeSunburstPlot <- function(db, pathToResults) {
           sep = ""),
     sep = ""
   ))
+
 }

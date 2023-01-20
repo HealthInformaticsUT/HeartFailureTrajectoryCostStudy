@@ -14,3 +14,4 @@ getSunburstPlot(db, pathToResults)
 \description{
 This function creates a sunburst plot of trajectories
 }
+\keyword{internal}
