@@ -97,7 +97,7 @@ createDemographicsTable <- function(pathToResults, studyName) {
 monetaryAnalysis <- function(pathToResults, studyName){
   M <- get(load(paste(
     pathToResults,
-    paste("/results/",
+    paste("/tmp/databases/",
           studyName,
           "/",
           studyName,
@@ -146,10 +146,9 @@ monetaryAnalysis <- function(pathToResults, studyName){
     }
     return(out)
   }
-
   costData <- utils::read.csv(paste(
     pathToResults,
-    paste("/results/",
+    paste("/tmp/databases/",
           studyName,
           "/",
           studyName,
@@ -185,7 +184,7 @@ monetaryAnalysis <- function(pathToResults, studyName){
     data,
     file = paste(
       pathToResults,
-      "/results/",
+      "/tmp/databases/",
       studyName,
       '/',
       studyName,
