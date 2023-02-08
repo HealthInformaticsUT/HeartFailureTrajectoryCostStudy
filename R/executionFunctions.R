@@ -57,7 +57,7 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
     pathToResults = pathToResults,
     allowedStatesList = allowedStatesList
   )
-  ParallelLogger::logInfo("Trajectories generated!")
+  # ParallelLogger::logInfo("Trajectories generated!")
   trajectoryData <-
     readr::read_csv(
       paste(

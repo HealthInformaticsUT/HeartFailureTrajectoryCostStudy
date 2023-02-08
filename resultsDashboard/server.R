@@ -83,9 +83,7 @@ server <- function(input, output, session) {
               pathToResults,
               "/results/",
               db,
-              '/',
-              db,
-              "demographicData.rdata",
+              "/HeartFailuredemographicData.rdata",
               sep = ""
             )
           )
@@ -115,9 +113,7 @@ server <- function(input, output, session) {
               pathToResults,
               "/results/",
               db,
-              '/',
-              db,
-              "monetaryData.rdata",
+              "/HeartFailuremonetaryData.rdata",
               sep = ""
             )
           )

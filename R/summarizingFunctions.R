@@ -99,9 +99,7 @@ monetaryAnalysis <- function(pathToResults, studyName){
     pathToResults,
     paste("/tmp/databases/",
           studyName,
-          "/",
-          studyName,
-          "_discrete_transition_matrix.rdata",
+          "/HeartFailure_discrete_transition_matrix.rdata",
           sep = ""),
     sep = ""
   )))
@@ -160,7 +158,9 @@ monetaryAnalysis <- function(pathToResults, studyName){
 
   costStandardCare <- c(costData["HF0", "MEAN.CHARGE"], costData["HF1", "MEAN.CHARGE"], costData["HF2", "MEAN.CHARGE"], costData["HF3", "MEAN.CHARGE"], costData["HFD", "MEAN.CHARGE"])*30
   costAlternative <- costStandardCare + 480.22
-
+  # When patient is dead it does not make sense to keep adding cost data, therefore we equal death state cost with 0
+  costStandardCare[5] <- 0
+  costAlternative[5] <- 0
   # Initial state for patients is HF0
   v <- c(1,0,0,0,0)
   # Calculating costs
@@ -186,9 +186,7 @@ monetaryAnalysis <- function(pathToResults, studyName){
       pathToResults,
       "/tmp/databases/",
       studyName,
-      '/',
-      studyName,
-      "monetaryData.rdata",
+      '/HeartFailuremonetaryData.rdata',
       sep = ""
     )
   )

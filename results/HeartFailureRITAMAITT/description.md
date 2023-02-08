@@ -1,0 +1,1 @@
+Random sample of 149,364 Estonian patients. Observational data from Estonian Health Insurance fund (EHIF) on bills and claims as well as prescriptions. Health documents from Health and Welfare Information Systems Centre (HWISC).

@@ -15,9 +15,7 @@ getMatrixPlot <- function(db, pathToResults) {
       pathToResults,
       "/results/",
       db,
-      "/",
-      db,
-      "_discrete_transition_matrix.rdata",
+      "/HeartFailure_discrete_transition_matrix.rdata",
       sep = ""
     )
   ))
@@ -59,9 +57,7 @@ getSunburstPlot <- function(db, pathToResults) {
     pathToResults,
     paste("/results/",
           db,
-          "/",
-          db,
-          "sunburstPlot.rdata",
+          "/HeartFailuresunburstPlot.rdata",
           sep = ""),
     sep = ""
   ))
@@ -100,9 +96,7 @@ getStateCostBarPlot <- function(databases, pathToResults) {
       paste(
         "/results/",
         db,
-        "/",
-        db,
-        "_state_statistics.txt",
+        "/HeartFailure_state_statistics.txt",
         sep = ""
       ),
       sep = ""
@@ -250,9 +244,7 @@ for (db in databases) {
     paste(
       "/results/",
       db,
-      "/",
-      db,
-      "_first_state_statistics.txt",
+      "/HeartFailure_first_state_statistics.txt",
       sep = ""
     ),
     sep = ""

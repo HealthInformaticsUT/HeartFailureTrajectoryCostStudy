@@ -16,7 +16,7 @@ library(HeartFailureTrajectoryCostStudy)
 
 studyName <- "HeartFailure" # TODO
 pathToResults <- getwd()   # TODO
-databaseDescription <- "A cool database ..." # TODO
+databaseDescription <- "Random sample of 149,364 Estonian patients. Observational data from Estonian Health Insurance fund (EHIF) on bills and claims as well as prescriptions. Health documents from Health and Welfare Information Systems Centre (HWISC)." # TODO
 
 ################################################################################
 #
@@ -26,19 +26,19 @@ databaseDescription <- "A cool database ..." # TODO
 
 pathToDriver <- './Drivers'
 dbms <- "postgresql" #TODO
-user <- '' #TODO
-pw <- "" #TODO
-server <- 'localhost/database' #TODO
-port <- '5432' #TODO
+user <- 'markus' #TODO
+pw <- "Konrad2021" #TODO
+server <- 'localhost/maitt' #TODO
+port <- '63333' #TODO
 
 cdmSchema <-
-  "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
+  "ohdsi_cdm_202207" #TODO # Schema which contains the OHDSI Common Data Model
 cdmTmpSchema <-
-  "ohdsi_tmp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+  "user_markus" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  "ohdsi_results" #TODO # Schema which will contain the final results
+  "ohdsi_results_202207" #TODO # Schema which will contain the final results
 baseUrl <-
-  "http://localhost:8080/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
+  "http://localhost:63344/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
 
 ################################################################################
 #
