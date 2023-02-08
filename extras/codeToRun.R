@@ -37,8 +37,6 @@ cdmTmpSchema <-
   "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
   "ohdsi_results" #TODO # Schema which will contain the final results
-baseUrl <-
-  "http://localhost:8080/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
 
 ################################################################################
 #
