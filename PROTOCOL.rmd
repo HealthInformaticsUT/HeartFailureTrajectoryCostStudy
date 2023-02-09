@@ -126,12 +126,14 @@ All patients included in the study are:
 
 #### Cohort entry event: 
  Earliest visit occurrence five years before death.
+ 
 #### Cohort inclusion criteria: 
  1) Having at least one death occurrence;
  2) Having at least one impatient visit related to a diagnosis of heart failure;
- 3) Being at least 18 years old before cohort inclusion.
+ 3) Patient is at least 18 years old before being included in the target cohort.
+ 
 #### Cohort exit criteria:
- Any death or passing of five years.
+ Patients exit the cohort at the time of death (five years after inclusion).
  
  ![Figure 3: Observation timeline](./extras/PROTOCOL/traj0.png)
 
@@ -216,7 +218,7 @@ Cohort exit criteria:
 
 Cohort entry event: 
 
-1) Any death having at least one hospitalization in relation to heart failure before dying.
+1) Any death having at least one hospitalization in relation to heart failure five years before dying.
 
 ## 8.3 DATA MANAGEMENT
 
@@ -224,7 +226,7 @@ Cohort entry event:
 
 # 9. PROTECTION OF HUMAN SUBJECTS
 
-The study uses only de-identified data. Confidentiality of patient records will be maintained at all times. Data custodians will remain in full control of executing the analysis and packaging results. There will be no transmission of patient-level data at any time during these analyses. Only aggregate statistics will be captured. Study packages will contain minimum cell count parameters to obscure any cells which fall below allowable reportable limits. All study reports will contain aggregate data only and will not identify individual patients or physicians. 
+The study uses only de-identified data. Confidentiality of patient records will be maintained at all times. Data custodians will remain in full control of executing the analysis and packaging results. ???There will be no transmission of patient-level data at any time during these analyses. Only aggregate statistics will be captured. Study packages will contain minimum cell count parameters to obscure any cells which fall below allowable reportable limits. All study reports will contain aggregate data only and will not identify individual patients or physicians. 
 
 # 10. MANAGEMENT AND REPORTING OF ADVERSE EVENTS/ADVERSE REACTIONS
 

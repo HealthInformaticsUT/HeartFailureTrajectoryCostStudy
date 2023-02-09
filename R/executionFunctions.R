@@ -14,10 +14,11 @@
 #' @param studyName Name of the study
 #' @param pathToResults Path to target directory where results will be saved
 #' @param databaseDescription Description of the database
+#' @param runTrajectoryCreation Boolean for running the first part of analysis
 #' @export
 
-executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, cdmTmpSchema, cdmResultsSchema, studyName, pathToResults, databaseDescription){
-
+executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, cdmTmpSchema, cdmResultsSchema, studyName, pathToResults, databaseDescription, runTrajectoryCreation = TRUE){
+  if(runTrajectoryCreation) {
   stateCohortLabels <- c("HF0", "HF1", "HF2", "HF3", "HFD")
   allowedStatesList <-
     Cohort2Trajectory::createStateList(stateCohortLabels) # Creates a list allowing all transitions from each state
@@ -58,6 +59,8 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
     allowedStatesList = allowedStatesList
   )
   # ParallelLogger::logInfo("Trajectories generated!")
+  }
+
   trajectoryData <-
     readr::read_csv(
       paste(
@@ -87,17 +90,17 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
                    'Specimen')
   ParallelLogger::logInfo("Learning Markov models ... ")
   TrajectoryMarkovAnalysis::TrajectoryMarkovAnalysis(
-    conn,
-    dbms,
-    cdmSchema,
-    cdmTmpSchema,
+    conn = connection,
+    dbms = dbms,
+    cdmSchema = cdmSchema,
+    cdmTmpSchema = cdmTmpSchema,
     inputData = trajectoryData,
-    modelType,
-    studyName,
-    pathToResults,
-    excludedStates,
-    costDomains,
-    databaseDescription
+    modelType = modelType,
+    studyName = studyName,
+    pathToResults = pathToResults,
+    excludedStates = excludedStates,
+    costDomains = costDomains,
+    databaseDescription = databaseDescription
   )
   ParallelLogger::logInfo("Markov models learned!")
   ParallelLogger::logInfo("Running last errands ...!")
@@ -109,6 +112,10 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
   monetaryAnalysis(pathToResults = pathToResults, studyName = studyName)
 
   createResultsDirectory(db = studyName, pathToResults = pathToResults)
+
+  removeTempTables(connection = conn,
+                   dbms = dbms,
+                  cdmTmpSchema = cdmTmpSchema)
 
 ParallelLogger::logInfo("The execution of the study has been successfully completed!")
 }
@@ -171,7 +178,7 @@ standardizeSunburstPlot <- function(db, pathToResults) {
 
   sunburstDetails$labels <- c("HF0", "HF1", "HF2", "HF3", "HFD")
   sunburstDetails$colors <-
-    c("#E69F00", "#56B4E9", "#F0E442", "#009E73", "#0072B2")
+    c("#D3FDCC", "#FDEFCC", "#FDD8CC", "#F9B2A7", "#FB7F7F")
   plot <- sunburstR::sunburst(
     sunburstDetails$freqPaths,
     count = TRUE,
@@ -196,3 +203,68 @@ standardizeSunburstPlot <- function(db, pathToResults) {
   ))
 
 }
+
+################################################################################
+#
+# Removing temp tables
+#
+################################################################################
+
+
+#' This function creates a "results" directory.
+#'
+#' @param dbms Database management system
+#' @param connection DatabaseConnector object (connection)
+#' @param cdmTmpSchema Schema where the authenticated user can create temporary tables
+#' @keywords internal
+removeTempTables <- function(connection, dbms, cdmTmpSchema){
+  ParallelLogger::logInfo(
+    "Start execution of: Dropping heartfailure tables ")
+  #heartfailure
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+  #heartfailure_censor_stats
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_censor_stats CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+  #heartfailure_inclusion
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+  #heartfailure_inclusion_result
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion_result CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+  #heartfailure_inclusion_stats
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion_stats CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+  #heartfailure_summary_stats
+  DatabaseConnector::executeSql(connection,
+                                SqlRender::translate(
+                                  targetDialect = dbms,
+                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_summary_stats CASCADE",
+                                                          cdmTmpSchema = cdmTmpSchema)
+                                ))
+
+  ParallelLogger::logInfo(
+    "End execution of: Dropping heartfailure tables ")
+}
+
+

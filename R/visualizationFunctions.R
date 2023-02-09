@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-#' This function a heatmap plot from the transition matrix
+#' This function a creates heatmap plot from the transition matrix
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
@@ -61,24 +61,6 @@ getSunburstPlot <- function(db, pathToResults) {
           sep = ""),
     sep = ""
   ))
-#
-#   sunburstDetails$labels <-
-#     c("HF0", "HF1", "HF2", "HF3", "HFD")
-#   sunburstDetails$colors <-
-#     c("#E69F00", "#56B4E9", "#F0E442", "#009E73", "#0072B2")
-#
-#   plot <- sunburstR::sunburst(
-#     sunburstDetails$freqPaths,
-#     count = TRUE,
-#     colors = list(
-#       range = c(sunburstDetails$colors, "#cccccc", "#cccccc"),
-#       domain = c(sunburstDetails$labels, "OUT OF COHORT", "End")
-#     ),
-#     legend = list(w = 200, h = 20, s = 5),
-#     breadcrumb = htmlwidgets::JS(("function(x) {return x;}")),
-#     height = "400px",
-#     width = "100%"
-#   )
   return(sunburstR::add_shiny(plot))
 }
 

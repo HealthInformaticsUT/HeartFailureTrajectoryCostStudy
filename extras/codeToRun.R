@@ -26,19 +26,17 @@ databaseDescription <- "Random sample of 149,364 Estonian patients. Observationa
 
 pathToDriver <- './Drivers'
 dbms <- "postgresql" #TODO
-user <- 'markus' #TODO
-pw <- "Konrad2021" #TODO
-server <- 'localhost/maitt' #TODO
-port <- '63333' #TODO
+user <- 'mhaug' #TODO
+pw <- "2019sukram9102" #TODO
+server <- '172.17.64.158/coriva' #TODO
+port <- '5432' #TODO
 
 cdmSchema <-
-  "ohdsi_cdm_202207" #TODO # Schema which contains the OHDSI Common Data Model
+  "ohdsi_cdm_20220330" #TODO # Schema which contains the OHDSI Common Data Model
 cdmTmpSchema <-
-  "user_markus" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+  "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  "ohdsi_results_202207" #TODO # Schema which will contain the final results
-baseUrl <-
-  "http://localhost:63344/WebAPI" #TODO # WebAPI URL is not needed when jsons' are already imported
+  "ohdsi_results_20220330" #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -72,7 +70,8 @@ executeHeartFailureTrajectoryCostStudy(
   cdmResultsSchema = cdmResultsSchema,
   studyName = studyName,
   pathToResults = pathToResults,
-  databaseDescription = databaseDescription
+  databaseDescription = databaseDescription,
+  runTrajectoryCreation = FALSE
 )
 
 ################################################################################
@@ -83,3 +82,4 @@ executeHeartFailureTrajectoryCostStudy(
 
 # The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovanalysis pack
 runDashboard(pathToResults = pathToResults)
+
