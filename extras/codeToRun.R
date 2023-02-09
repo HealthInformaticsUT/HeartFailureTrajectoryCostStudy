@@ -26,17 +26,17 @@ databaseDescription <- "Random sample of 149,364 Estonian patients. Observationa
 
 pathToDriver <- './Drivers'
 dbms <- "postgresql" #TODO
-user <- 'mhaug' #TODO
-pw <- "2019sukram9102" #TODO
-server <- '172.17.64.158/coriva' #TODO
-port <- '5432' #TODO
+user <- '' #TODO
+pw <- "" #TODO
+server <- 'localhost/database' #TODO
+port <- '' #TODO
 
 cdmSchema <-
-  "ohdsi_cdm_20220330" #TODO # Schema which contains the OHDSI Common Data Model
+  "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
 cdmTmpSchema <-
   "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  "ohdsi_results_20220330" #TODO # Schema which will contain the final results
+  "ohdsi_results" #TODO # Schema which will contain the final results
 
 ################################################################################
 #
