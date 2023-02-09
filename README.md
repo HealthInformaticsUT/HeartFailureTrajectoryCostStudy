@@ -76,7 +76,7 @@ Study protocol: [HeartFailureTrajectoryCostStudy](https://github.com/HealthInfor
 
 Execution code: [codeToRun.R](https://github.com/HealthInformaticsUT/HeartFailureTrajectoryCostStudy/blob/main/extras/codeToRun.R)
 
-After successfully running the study share the results repository with authors for participating in publishing an article!
+After successfully running the study share the results repository with authors (markus.haug@ut.ee) for participating in publishing an article!
 
 License
 =======
