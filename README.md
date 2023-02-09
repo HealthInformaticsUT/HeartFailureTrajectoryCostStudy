@@ -39,15 +39,15 @@ All patients included (target cohort) in the study are:
 
 All of the patients have been divided into monthly states (state cohorts) which are constructed as follows:
 
-HF0 - the patient has had zero hospitalizations in relation to heart failure the past year;
+1) HF0 - the patient has had zero hospitalizations in relation to heart failure the past year;
 
-HF1 - the patient has had one hospitalization in relation to heart failure the past year;
+2) HF1 - the patient has had one hospitalization in relation to heart failure the past year;
 
-HF2 - the patient has had two hospitalizations in relation to heart failure the past year;
+3) HF2 - the patient has had two hospitalizations in relation to heart failure the past year;
 
-HF3 - the patient has had at least three hospitalizations in relation to heart failure the past year;
+4) HF3 - the patient has had at least three hospitalizations in relation to heart failure the past year;
 
-HFD - the patient died during the ongoing month;
+5) HFD - the patient died during the ongoing month;
 
 We start with constructing the target cohort and after that the health states HF0, HF1, HF2, HF3 and HFD. Using the package *Cohort2Trajectory* we will construct trajectories for each patient showing their status monthly. The observation period of each patient is 5 years before the subject's death. That is 60 months, meaning that each patient will contribute to the Markov chain for 60 cycles.
 ![Figure 1: Example of patient trajectories](./extras/PROTOCOL/traj1.png)
