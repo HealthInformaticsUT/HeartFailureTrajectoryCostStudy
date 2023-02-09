@@ -25,10 +25,31 @@ Visualizing patient disease trajectories.
 
 Calculating ICER for standard of care vs alternative treatment (Telemonitoring). 
 
-Screenshots
-===========
+Design
+======
 
-We start with constructing the target cohort and after that the health states HF0, HF1, HF2, HF3 and HFD as defined before. Using the package *Cohort2Trajectory* we will construct trajectories for each patient showing their status monthly. The observation period of each patient is 5 years before the subject's death. That is 60 months, meaning that each patient will contribute to the Markov chain for 60 cycles.
+All patients included (target cohort) in the study are:
+
+1) 18 years or older;
+
+2) have had at least 1 hospitalization in relation to heart failure;
+
+3) die at least in five years after having first heart failure diagnosis (observation period 5 years);
+
+
+All of the patients have been divided into monthly states (state cohorts) which are constructed as follows:
+
+HF0 - the patient has had zero hospitalizations in relation to heart failure the past year;
+
+HF1 - the patient has had one hospitalization in relation to heart failure the past year;
+
+HF2 - the patient has had two hospitalizations in relation to heart failure the past year;
+
+HF3 - the patient has had at least three hospitalizations in relation to heart failure the past year;
+
+HFD - the patient died during the ongoing month;
+
+We start with constructing the target cohort and after that the health states HF0, HF1, HF2, HF3 and HFD. Using the package *Cohort2Trajectory* we will construct trajectories for each patient showing their status monthly. The observation period of each patient is 5 years before the subject's death. That is 60 months, meaning that each patient will contribute to the Markov chain for 60 cycles.
 ![Figure 1: Example of patient trajectories](./extras/PROTOCOL/traj1.png)
 The Markov chain's parameters (transition probabilities) will be calculated using the maximum likelihood estimation. This and the states' cost analysis will be conducted by the *TrajectoryMarkovAnalysis* package. The states costs will be queried from the OMOP CDM *cost* table. If the data partner has not populated the *cost* table they can still participate in the study contributing with the Markov chain parameters. Individually the packages output linear patient treatment trajectories and Markov chains with cost statistics respectively.
 
