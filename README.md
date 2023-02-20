@@ -10,6 +10,8 @@ Requirements for patients:
 2) Death data
 3) Populated cost table (optional)
 
+Results viewer http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/ . If you wish to participate contact send the authors your results!
+
 Introduction
 ============
 
