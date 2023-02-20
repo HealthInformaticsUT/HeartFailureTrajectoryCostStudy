@@ -183,7 +183,7 @@ monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, 
   data <- cbind(data, t(data.frame(trajectoryTotalCostStandard, trajectoryTotalCostAlternative, ICER)))
 
   rownames(data) <- 1:nrow(data)
-  colnames(data) <- c("DESCRIPTIVE FEATURE", studyName)
+  colnames(data) <- c("DESCRIPTIVE FEATURE", transitionStudyName)
 
   if(save) {
   saveRDS(
