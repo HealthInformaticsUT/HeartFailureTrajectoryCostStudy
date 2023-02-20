@@ -1,10 +1,19 @@
 HeartFailureTrajectoryCostStudy
 ======================
 
+Data Requirements
+=================
+OMOP CDM v 5.3.*
+
+Requirements for patients:
+1) Heart failure diagnosis
+2) Death data
+3) Populated cost table (optional)
+
 Introduction
 ============
 
-R-package HeartFailureTrajectoryCostStudy is built for running a heart failure related [study]().
+R-package HeartFailureTrajectoryCostStudy is built for running a heart failure related [study](https://haugmarkus.github.io/HeartFailureTrajectoryCostStudy/).
 
 In 2020 Thokala *et al* published a paper on a [heart failure study](https://doi.org/10.1016/j.jval.2020.02.012), where they modelled patients' observational health data with Markov Chains and used cost-effectiveness analysis to determine whether Telemonitoring (TM) would be a feasible new treatment in comparison of the standard of care (SoC). In the paper they were contingent on transparent methods for making important medical decisions (whether or not start using TM in treatment). This motivated the authors to develop tools for running such studies on OMOP CDM data having the goal to make such studies easily distributable, transparent and reproducible. Now we have undergone and developed two R-packages which will help to reproduce such studies on OMOP CDM and wish to create a pilot trial using the same structure as published by Thokala *et al*. This trial would provide valuable insights that would aid in the ongoing development of the packages.
 
@@ -65,9 +74,6 @@ For running the package with OMOP CDM, the user must have:
 1. Permissions to select on ohdsi cdm data schema.
 2. Permissions to select on ohdsi cdm results schema.
 3. Permissions to select, create and insert on ohdsi temp/scratch schema.
-
-System Requirements
-===================
 
 Getting Started
 ===============
