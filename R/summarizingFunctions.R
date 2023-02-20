@@ -191,7 +191,7 @@ monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, 
     file = paste(
       pathToResults,
       "/tmp/databases/",
-      trajectoryTotalCostStandard,
+      transitionStudyName,
       '/HeartFailuremonetaryData.rdata',
       sep = ""
     )
