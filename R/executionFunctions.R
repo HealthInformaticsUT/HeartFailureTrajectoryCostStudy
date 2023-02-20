@@ -106,6 +106,24 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
     databaseDescription = databaseDescription
   )
   ParallelLogger::logInfo("Markov models learned!")
+
+  ParallelLogger::logInfo("Generating data!")
+
+  transistionMatrix <- get(load(paste(pathToResults,"/tmp/databases/", studyName, "/", studyName, "_discrete_transition_matrix.rdata" ,sep = "")))
+
+  genData <- TrajectoryMarkovAnalysis::generateDataDiscrete(transitionMatrix = transistionMatrix,
+                                 n = 100000, # TODO : Number of patients
+                                 minDate = "1900-01-01",
+                                 maxDate = "2021-12-31",
+                                 maxOut = 365, # TODO : Maximum days out of cohort
+                                 stateDuration = 30, # TODO : state duration (time in days)
+                                 pathToResults = pathToResults,
+                                 studyName = studyName)
+
+  TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
+
+  ParallelLogger::logInfo("Data generated and LogRank tests completed!")
+
   ParallelLogger::logInfo("Running last errands ...!")
 
   createDemographicsTable(pathToResults = pathToResults, studyName = studyName)
@@ -145,6 +163,7 @@ createResultsDirectory <- function(db, pathToResults){
                                        paste(db,"_state_statistics.txt",sep=""),
                                        paste(db,"demographicData.rdata",sep=""),
                                        paste(db,"monetaryData.rdata",sep=""),
+                                       paste(db,"logRankMatrix.rdata",sep=""),
                                        paste(db,"sunburstPlot.rdata",sep="")), sep = "/")
 
   file.copy(list.of.files, results.folder)
