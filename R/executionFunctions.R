@@ -59,6 +59,9 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
     allowedStatesList = allowedStatesList
   )
   # ParallelLogger::logInfo("Trajectories generated!")
+  removeTempTables(connection = conn,
+                   dbms = dbms,
+                   cdmTmpSchema = cdmTmpSchema)
   }
 
   trajectoryData <-
@@ -112,10 +115,6 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
   monetaryAnalysis(pathToResults = pathToResults, costStudyName = studyName, transitionStudyName = studyName)
 
   createResultsDirectory(db = studyName, pathToResults = pathToResults)
-
-  removeTempTables(connection = conn,
-                   dbms = dbms,
-                  cdmTmpSchema = cdmTmpSchema)
 
 ParallelLogger::logInfo("The execution of the study has been successfully completed!")
 }
