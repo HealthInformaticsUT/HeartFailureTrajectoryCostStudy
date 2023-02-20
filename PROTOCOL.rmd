@@ -17,17 +17,9 @@ output:
 
 **Date of last version of protocol**: 15.12.2022
 
-**EU PAS register number**:
-
-**Active substance**:
-
-**Medicinal product**:
-
-**Research question and objectives**:
-
 **Country(-ies) of study**: Estonia, TBA
 
-**Authors**: Markus Haug, MSc
+**Authors**: Markus Haug, MSc; Raivo Kolde, PhD
 
 
 # 2. LIST OF ABBREVIATIONS
@@ -50,10 +42,6 @@ output:
 | :------------------ | -----------------------------------------:  |
 | Markus Haug         | University of Tartu                         |
 | Raivo Kolde         | University of Tartu                         |
-
-## 3.2 Sponsor
-
-(?)
 
 # 4. Abstract
 
@@ -220,9 +208,9 @@ Cohort entry event:
 
 1) Any death having at least one hospitalization in relation to heart failure five years before dying.
 
-## 8.3 DATA MANAGEMENT
+## 8.3 DATA MANAGEMENT & DATA ANALYSIS
 
-## 8.4 DATA ANALYSIS
+The package relies on the OMOP CDM. For running the study patient level data on heart failure diagnosis and death is required. Data on costs is not necessary but recommended for further analysis.  After running the study summarized tables will be created into *results* folder, please **share ONLY the *results* folder**.
 
 # 9. PROTECTION OF HUMAN SUBJECTS
 

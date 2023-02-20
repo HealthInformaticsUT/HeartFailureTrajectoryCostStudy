@@ -30,6 +30,26 @@ server <- function(input, output, session) {
     )
   })
 
+  # output$activeMatrixDatabase <- renderUI({
+  #   shiny::selectInput(
+  #     inputId = "activeMatrixDatabases",
+  #     label = "Transition databases:",
+  #     choices =  studyDatabases,
+  #     multiple = TRUE,
+  #     selected = studyDatabases[1]
+  #   )
+  # })
+
+  output$activeCostDatabase <- renderUI({
+    shiny::selectInput(
+      inputId = "activeCostDatabase",
+      label = "Cost database:",
+      choices =  studyDatabases,
+      multiple = FALSE,
+      selected = studyDatabases[1]
+    )
+  })
+
   # Reading each of the databases' descriptions
   v$databaseDescriptions <-
     lapply(studyDatabases, function(db) {
@@ -124,12 +144,40 @@ server <- function(input, output, session) {
         return(data)
       })
 
+      output$monetaryGeneratedTable <- renderDataTable({
+        data <-
+          data.frame(
+            c(
+              "Standard of care (€)",
+              "Alternative care (€)",
+              "ICER (€/QALY)"
+            )
+          )
+        rownames(data) <- 1:nrow(data)
+        colnames(data) <- c("DESCRIPTIVE FEATURE")
+        if(!is.null(input$activeCostDatabase)) {
+        for (db in input$activeDatabases) {
+          dbTable <- monetaryAnalysis(pathToResults = pathToResults, costStudyName = input$activeCostDatabase, transitionStudyName = db, save = FALSE)
+          colnames.tmp <- c(colnames(data), db)
+          data <- cbind(data, dbTable[, 2])
+          colnames(data) <- colnames.tmp
+        }
+        }
+        return(data)
+      })
+
       # Creating plots of the matrices
 
       for (db in input$activeDatabases) {
+        # Markov model matrices
         matrixName = paste(db,"Matrix", sep = "")
         output[[matrixName]] <- shiny::renderPlot({
           getMatrixPlot(db, pathToResults)
+        })
+        # LogRank matrices
+        LRmatrixName = paste(db,"LRMatrix", sep = "")
+        output[[LRmatrixName]] <- shiny::renderPlot({
+          getLRMatrixPlot(db, pathToResults)
         })
       }
 
@@ -148,6 +196,24 @@ server <- function(input, output, session) {
         do.call(tagList, box_output_list)
       })
 
+      output$LRHeatmaps <- renderUI({
+        box_output_list = lapply(1:length(input$activeDatabases), function(i) {
+          shinydashboard::box(
+            width = 6,
+            title = input$activeDatabases[i],
+            status = "primary",
+            solidHeader = TRUE,
+            # if (is.null(isolate(input$activeDatabases))) validate(need(input$activeDatabases, FALSE))
+            shiny::plotOutput(paste(input$activeDatabases[i],"LRMatrix", sep = ""))
+          )
+
+        })
+        do.call(tagList, box_output_list)
+      })
+
+      output$summarisedMatrixHeatmap <- renderPlot({
+      getSumMatrixPlot(dbList = input$activeDatabases, pathToResults)
+      })
 
       # Reading in sunburst plots' HTML
 

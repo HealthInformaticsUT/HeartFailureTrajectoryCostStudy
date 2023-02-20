@@ -109,7 +109,7 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
 
   standardizeSunburstPlot(db = studyName, pathToResults = pathToResults)
 
-  monetaryAnalysis(pathToResults = pathToResults, studyName = studyName)
+  monetaryAnalysis(pathToResults = pathToResults, costStudyName = studyName, transitionStudyName = studyName)
 
   createResultsDirectory(db = studyName, pathToResults = pathToResults)
 

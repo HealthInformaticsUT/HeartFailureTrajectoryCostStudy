@@ -16,7 +16,7 @@ library(HeartFailureTrajectoryCostStudy)
 
 studyName <- "HeartFailure" # TODO
 pathToResults <- getwd()   # TODO
-databaseDescription <- "Random sample of 149,364 Estonian patients. Observational data from Estonian Health Insurance fund (EHIF) on bills and claims as well as prescriptions. Health documents from Health and Welfare Information Systems Centre (HWISC)." # TODO
+databaseDescription <- "" # TODO
 
 ################################################################################
 #
@@ -29,14 +29,14 @@ dbms <- "postgresql" #TODO
 user <- '' #TODO
 pw <- "" #TODO
 server <- 'localhost/database' #TODO
-port <- '' #TODO
+port <- '5432' #TODO
 
 cdmSchema <-
   "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
-cdmTmpSchema <-
+cdmTmpSchema <-s
   "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  "ohdsi_results" #TODO # Schema which will contain the final results
+  "ohdsi_result" #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -71,7 +71,7 @@ executeHeartFailureTrajectoryCostStudy(
   studyName = studyName,
   pathToResults = pathToResults,
   databaseDescription = databaseDescription,
-  runTrajectoryCreation = FALSE
+  runTrajectoryCreation = TRUE
 )
 
 ################################################################################

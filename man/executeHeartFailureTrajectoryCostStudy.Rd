@@ -12,7 +12,8 @@ executeHeartFailureTrajectoryCostStudy(
   cdmResultsSchema,
   studyName,
   pathToResults,
-  databaseDescription
+  databaseDescription,
+  runTrajectoryCreation = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ executeHeartFailureTrajectoryCostStudy(
 \item{pathToResults}{Path to target directory where results will be saved}
 
 \item{databaseDescription}{Description of the database}
+
+\item{runTrajectoryCreation}{Boolean for running the first part of analysis}
 }
 \description{
 This function creates a "results" directory.

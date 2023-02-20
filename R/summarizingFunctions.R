@@ -90,15 +90,22 @@ createDemographicsTable <- function(pathToResults, studyName) {
 
 #' This function evaluates cost of a mean patient trajectory for standard of care, telemonitoring and ICER, creates a summarizing table
 #'
-#' @param studyName Name of the study
+#' @param costStudyName Name of the study (Markov analysis)
+#' @param transitionStudyName Name of the study (Monetary analysis)
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
 #'
-monetaryAnalysis <- function(pathToResults, studyName){
+monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, save = TRUE){
+  if(save){
+    resultPath <- "/tmp/databases/"
+  }
+  else {
+    resultPath <- "/results/"
+  }
   M <- get(load(paste(
     pathToResults,
-    paste("/tmp/databases/",
-          studyName,
+    paste(resultPath,
+          transitionStudyName,
           "/HeartFailure_discrete_transition_matrix.rdata",
           sep = ""),
     sep = ""
@@ -146,11 +153,9 @@ monetaryAnalysis <- function(pathToResults, studyName){
   }
   costData <- utils::read.csv(paste(
     pathToResults,
-    paste("/tmp/databases/",
-          studyName,
-          "/",
-          studyName,
-          "_state_statistics.txt",
+    paste(resultPath,
+          costStudyName,"/",
+          "HeartFailure_state_statistics.txt",
           sep = ""),
     sep = ""
   ))
@@ -180,15 +185,16 @@ monetaryAnalysis <- function(pathToResults, studyName){
   rownames(data) <- 1:nrow(data)
   colnames(data) <- c("DESCRIPTIVE FEATURE", studyName)
 
+  if(save) {
   saveRDS(
     data,
     file = paste(
       pathToResults,
       "/tmp/databases/",
-      studyName,
+      trajectoryTotalCostStandard,
       '/HeartFailuremonetaryData.rdata',
       sep = ""
     )
-  )
+  )} else {return(data)}
 }
 

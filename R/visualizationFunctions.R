@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-#' This function a creates heatmap plot from the transition matrix
+#' This function creates a heatmap plot from the transition matrix
 #'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
@@ -31,6 +31,111 @@ getMatrixPlot <- function(db, pathToResults) {
   plot <- ggplotify::as.grob(
     pheatmap::pheatmap(
       M,
+      cluster_rows = F,
+      cluster_cols = F,
+      display_numbers = TRUE,
+      fontsize_number = 15,
+      number_format = '%.4f',
+      number_color = 'black',
+      color = grDevices::colorRampPalette(c('#FFFFFF', '#39ff14'))(100),
+      # main = db,
+      legend = FALSE
+    )
+  )
+  return(plot)
+}
+
+
+#' This function creates a heatmap plot from the LogRank test matrix
+#'
+#' @param db Name of the study
+#' @param pathToResults Path to target directory where results will be saved
+#' @keywords internal
+getLRMatrixPlot <- function(db, pathToResults) {
+  M <- get(load(
+    paste(
+      pathToResults,
+      "/results/",
+      db,
+      "/HeartFailurelogRankMatrix.rdata",
+      sep = ""
+    )
+  ))
+
+  if ("START" %in% colnames(M) & "EXIT" %in% colnames(M)) {
+    col.order <-
+      c("START", setdiff(sort(colnames(M)), c("START", "EXIT")), "EXIT")
+  }
+  else {
+    col.order <- sort(colnames(M))
+  }
+  M <- M[col.order , col.order]
+  plot <- ggplotify::as.grob(
+    pheatmap::pheatmap(
+      M,
+      cluster_rows = F,
+      cluster_cols = F,
+      display_numbers = TRUE,
+      fontsize_number = 15,
+      number_format = '%.4f',
+      number_color = 'black',
+      color = grDevices::colorRampPalette(c('#FF4E4E', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF'))(100),
+      # main = db,
+      legend = FALSE
+    )
+  )
+  return(plot)
+}
+
+#' This function creates a heatmap plot from the transition matrices
+#'
+#' @param dbList List of selected study databases
+#' @param pathToResults Path to target directory where results will be saved
+#' @keywords internal
+getSumMatrixPlot <- function(dbList, pathToResults) {
+  M_list <- lapply(dbList, function(db)  {
+    M <- get(load(
+    paste(
+      pathToResults,
+      "/results/",
+      db,
+      "/HeartFailure_discrete_transition_matrix.rdata",
+      sep = ""
+    )
+  ))
+    if ("START" %in% colnames(M) & "EXIT" %in% colnames(M)) {
+      col.order <-
+        c("START", setdiff(sort(colnames(M)), c("START", "EXIT")), "EXIT")
+    }
+    else {
+      col.order <- sort(colnames(M))
+    }
+    M <- M[col.order , col.order]
+    return(M)
+  }
+  )
+
+  personCounts <- lapply(dbList, function(db)  {
+    dbTable <- readRDS(
+      paste(
+        pathToResults,
+        "/results/",
+        db,
+        "/HeartFailuredemographicData.rdata",
+        sep = ""
+      )
+    )
+    return(dbTable[1,2])
+  }
+  )
+  totalPerson <- Reduce("+", personCounts)
+
+  M_list <- mapply("*",M_list,personCounts,SIMPLIFY = FALSE)
+  sup_M  <- Reduce("+", M_list)/totalPerson
+
+  plot <- ggplotify::as.grob(
+    pheatmap::pheatmap(
+      sup_M,
       cluster_rows = F,
       cluster_cols = F,
       display_numbers = TRUE,

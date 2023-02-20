@@ -29,7 +29,8 @@ sidebar <- shinydashboard::dashboardSidebar(
     shinydashboard::menuItem("Matrixes", tabName = "matrixes", icon = icon("square")),
     shinydashboard::menuItem("Demographics", tabName = "demographics", icon = icon("address-book")),
     shinydashboard::menuItem("Sunburst plots", tabName = "sunbursts", icon = icon("sun")),
-    shinydashboard::menuItem("Financial analysis", tabName = "statecosts", icon = icon("bar-chart"))
+    shinydashboard::menuItem("Financial analysis", tabName = "statecosts", icon = icon("bar-chart")),
+    shinydashboard::menuItem("Result aggregation", tabName = "resultagg", icon = icon("react"))
   ),
   shiny::uiOutput("activeDatabases")
 )
@@ -43,22 +44,28 @@ sidebar <- shinydashboard::dashboardSidebar(
 body <- shinydashboard::dashboardBody(
   id = "shinyBody",
   shinydashboard::tabItems(
-    shinydashboard::tabItem(
-      tabName = "description",
-      shinycssloaders::withSpinner(shiny::htmlOutput("databaseList"))
-    ),
+    shinydashboard::tabItem(tabName = "description",
+                            shinycssloaders::withSpinner(shiny::htmlOutput("databaseList"))),
     shinydashboard::tabItem(
       tabName = "demographics",
       shinycssloaders::withSpinner(shiny::dataTableOutput("demographicTable"))
     ),
     shinydashboard::tabItem(
       tabName = "matrixes",
-      shinycssloaders::withSpinner(shiny::uiOutput("matrixHeatmaps"))
+      shiny::tabsetPanel(
+        type = "tabs",
+        shiny::tabPanel(
+          "Discrete Markov models",
+          shinycssloaders::withSpinner(shiny::uiOutput("matrixHeatmaps"))
+        ),
+        shiny::tabPanel(
+          "Logrank tests",
+          shinycssloaders::withSpinner(shiny::uiOutput("LRHeatmaps"))
+        )
+      )
     ),
-    shinydashboard::tabItem(
-      tabName = "sunbursts",
-      shinycssloaders::withSpinner(shiny::uiOutput("sunburstPlots")),
-    ),
+    shinydashboard::tabItem(tabName = "sunbursts",
+                            shinycssloaders::withSpinner(shiny::uiOutput("sunburstPlots")),),
     shinydashboard::tabItem(
       tabName = "statecosts",
       shiny::tabsetPanel(
@@ -80,9 +87,23 @@ body <- shinydashboard::dashboardBody(
         ),
         shiny::tabPanel(
           "Cost effectiveness analysis",
-          shinycssloaders::withSpinner(
-            shiny::dataTableOutput("monetaryTable")
-          )
+          shinycssloaders::withSpinner(shiny::dataTableOutput("monetaryTable"))
+        )
+      )
+    ),
+    shinydashboard::tabItem(
+      tabName = "resultagg",
+      shiny::tabsetPanel(
+        type = "tabs",
+        shiny::tabPanel(
+          "Summarised transition matrix",
+         shinycssloaders::withSpinner(shiny::plotOutput("summarisedMatrixHeatmap"))
+        ),
+        shiny::tabPanel(
+          "Markov chain x Cost statistics",
+          # shiny::uiOutput("activeMatrixDatabases"),
+          shiny::uiOutput("activeCostDatabase"),
+          shinycssloaders::withSpinner(shiny::dataTableOutput("monetaryGeneratedTable")),
         )
       )
     )

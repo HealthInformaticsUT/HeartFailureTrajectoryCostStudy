@@ -4,12 +4,19 @@
 \alias{monetaryAnalysis}
 \title{This function evaluates cost of a mean patient trajectory for standard of care, telemonitoring and ICER, creates a summarizing table}
 \usage{
-monetaryAnalysis(pathToResults, studyName)
+monetaryAnalysis(
+  pathToResults,
+  costStudyName,
+  transitionStudyName,
+  save = TRUE
+)
 }
 \arguments{
 \item{pathToResults}{Path to target directory where results will be saved}
 
-\item{studyName}{Name of the study}
+\item{costStudyName}{Name of the study (Markov analysis)}
+
+\item{transitionStudyName}{Name of the study (Monetary analysis)}
 }
 \description{
 This function evaluates cost of a mean patient trajectory for standard of care, telemonitoring and ICER, creates a summarizing table
