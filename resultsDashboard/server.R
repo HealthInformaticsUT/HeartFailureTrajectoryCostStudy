@@ -167,8 +167,7 @@ server <- function(input, output, session) {
       })
 
       # Creating plots of the matrices
-
-      for (db in input$activeDatabases) {
+        lapply(input$activeDatabases, function(db) {
         # Markov model matrices
         matrixName = paste(db,"Matrix", sep = "")
         output[[matrixName]] <- shiny::renderPlot({
@@ -179,8 +178,7 @@ server <- function(input, output, session) {
         output[[LRmatrixName]] <- shiny::renderPlot({
           getLRMatrixPlot(db, pathToResults)
         })
-      }
-
+      })
       output$matrixHeatmaps <- renderUI({
         box_output_list = lapply(1:length(input$activeDatabases), function(i) {
           shinydashboard::box(

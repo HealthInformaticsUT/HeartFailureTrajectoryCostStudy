@@ -28,7 +28,7 @@ getMatrixPlot <- function(db, pathToResults) {
     col.order <- sort(colnames(M))
   }
   M <- M[col.order , col.order]
-  plot <- ggplotify::as.grob(
+  plot <- ggplotify::as.ggplot(
     pheatmap::pheatmap(
       M,
       cluster_rows = F,

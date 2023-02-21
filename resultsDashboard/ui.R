@@ -56,10 +56,14 @@ body <- shinydashboard::dashboardBody(
         type = "tabs",
         shiny::tabPanel(
           "Discrete Markov models",
+          mainPanel(
+            p(""), strong("The source nodes are given in ROWS and target nodes are shown in COLUMNS.")),
           shinycssloaders::withSpinner(shiny::uiOutput("matrixHeatmaps"))
         ),
         shiny::tabPanel(
           "Logrank tests",
+          mainPanel(
+            p(""), strong("The source nodes are given in ROWS and target nodes are shown in COLUMNS.")),
           shinycssloaders::withSpinner(shiny::uiOutput("LRHeatmaps"))
         )
       )
