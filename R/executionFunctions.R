@@ -109,18 +109,46 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
 
   ParallelLogger::logInfo("Generating data!")
 
+  nrPatients <- length(unique(trajectoryData$SUBJECT_ID))
+
   transistionMatrix <- get(load(paste(pathToResults,"/tmp/databases/", studyName, "/", studyName, "_discrete_transition_matrix.rdata" ,sep = "")))
 
   genData <- TrajectoryMarkovAnalysis::generateDataDiscrete(transitionMatrix = transistionMatrix,
-                                 n = 100000, # TODO : Number of patients
-                                 minDate = "1900-01-01",
-                                 maxDate = "2021-12-31",
-                                 maxOut = 365, # TODO : Maximum days out of cohort
-                                 stateDuration = 30, # TODO : state duration (time in days)
-                                 pathToResults = pathToResults,
-                                 studyName = studyName)
+                                                            n = nrPatients,
+                                                            minDate = "1900-01-01",
+                                                            maxDate = "2021-12-31",
+                                                            maxOut = 365, # TODO : Maximum days out of cohort
+                                                            stateDuration = 30, # TODO : state duration (time in days)
+                                                            pathToResults = pathToResults,
+                                                            studyName = studyName)
 
-  TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
+  lrMatrix <- TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
+
+  for (i in 1:9) {
+
+    genData <- TrajectoryMarkovAnalysis::generateDataDiscrete(transitionMatrix = transistionMatrix,
+                                                              n = nrPatients,
+                                                              minDate = "1900-01-01",
+                                                              maxDate = "2021-12-31",
+                                                              maxOut = 365, # TODO : Maximum days out of cohort
+                                                              stateDuration = 30, # TODO : state duration (time in days)
+                                                              pathToResults = pathToResults,
+                                                              studyName = studyName)
+    newLR <- TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
+    lrMatrix <- lrMatrix + newLR
+  }
+  lrMatrix <- lrMatrix/10
+  TrajectoryMarkovAnalysis::save_object(
+    object <- lrMatrix,
+    path <- paste(
+      pathToResults,
+      "/tmp/databases/",
+      studyName,
+      "/",
+      studyName, "logRankMatrix.rdata",
+      sep = ""
+    )
+  )
 
   ParallelLogger::logInfo("Data generated and LogRank tests completed!")
 
