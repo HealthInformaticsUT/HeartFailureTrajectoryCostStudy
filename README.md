@@ -10,12 +10,12 @@ Requirements for patients:
 2) Death data
 3) Populated cost table (optional)
 
-Results viewer http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/ . If you wish to participate contact send the authors your results!
+Results viewer http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/ . If you wish to participate run the study on your OMOP CDM & send the authors your results!
 
 Introduction
 ============
 
-R-package HeartFailureTrajectoryCostStudy is built for running a heart failure related [study](https://haugmarkus.github.io/HeartFailureTrajectoryCostStudy/).
+R-package HeartFailureTrajectoryCostStudy is built for running a heart failure related [study (PROTOCOL)](https://haugmarkus.github.io/HeartFailureTrajectoryCostStudy/).
 
 In 2020 Thokala *et al* published a paper on a [heart failure study](https://doi.org/10.1016/j.jval.2020.02.012), where they modelled patients' observational health data with Markov Chains and used cost-effectiveness analysis to determine whether Telemonitoring (TM) would be a feasible new treatment in comparison of the standard of care (SoC). In the paper they were contingent on transparent methods for making important medical decisions (whether or not start using TM in treatment). This motivated the authors to develop tools for running such studies on OMOP CDM data having the goal to make such studies easily distributable, transparent and reproducible. Now we have undergone and developed two R-packages which will help to reproduce such studies on OMOP CDM and wish to create a pilot trial using the same structure as published by Thokala *et al*. This trial would provide valuable insights that would aid in the ongoing development of the packages.
 
