@@ -4,9 +4,10 @@
 #
 ################################################################################
 
-# devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
-# devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "always") # Run for installing release v1.0.2
+devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
+devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "always") # Run for installing release v1.0.2
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy")
+
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
 #
@@ -25,18 +26,18 @@ databaseDescription <- "" # TODO
 ################################################################################
 
 pathToDriver <- './Drivers'
-dbms <- "postgresql" #TODO
+dbms <- 'postgresql' #TODO
 user <- '' #TODO
-pw <- "" #TODO
+pw <- '' #TODO
 server <- 'localhost/database' #TODO
 port <- '5432' #TODO
 
 cdmSchema <-
-  "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
-cdmTmpSchema <-s
-  "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+  'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
+cdmTmpSchema <-
+  'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  "ohdsi_result" #TODO # Schema which will contain the final results
+  'ohdsi_result' #TODO # Schema which will contain the final results
 
 ################################################################################
 #
