@@ -15,8 +15,8 @@ library(HeartFailureTrajectoryCostStudy)
 #
 ################################################################################
 
-studyName <- "HeartFailure" # TODO
-pathToResults <- getwd()   # TODO
+studyName <- "HeartFailure" # DO NOT CHANGE
+pathToResults <- getwd()   # DO NOT CHANGE
 databaseDescription <- "" # TODO
 
 ################################################################################
@@ -81,6 +81,5 @@ executeHeartFailureTrajectoryCostStudy(
 #
 ################################################################################
 
-# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovanalysis pack
 runDashboard(pathToResults = pathToResults)
 
