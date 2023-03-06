@@ -100,3 +100,5 @@ HeartFailureTrajectoryCostStudy is being developed in R Studio.
 2. [TrajectoryMarkovAnalysis](https://github.com/HealthInformaticsUT/TrajectoryMarkovAnalysis) by Markus Haug
 3. [TrajectoryViz package](https://github.com/HealthInformaticsUT/TrajectoryViz) by Maarja Pajusalu
 
+https://health-informatics.cs.ut.ee/
+
