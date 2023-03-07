@@ -3,7 +3,7 @@ HeartFailureTrajectoryCostStudy
 
 Data Requirements
 =================
-OMOP CDM v 5.3.*, not tested on v 5.4.*
+OMOP CDM v 5.3.\*, not tested on v 5.4.\*
 
 Requirements for patients:
 1) Heart failure diagnosis
