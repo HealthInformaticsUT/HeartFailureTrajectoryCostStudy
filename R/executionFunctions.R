@@ -117,21 +117,19 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
                                                             n = nrPatients,
                                                             minDate = "1900-01-01",
                                                             maxDate = "2021-12-31",
-                                                            maxOut = 365, # TODO : Maximum days out of cohort
-                                                            stateDuration = 30, # TODO : state duration (time in days)
+                                                            stateDuration = 30,
                                                             pathToResults = pathToResults,
                                                             studyName = studyName)
+  kmPlotGenerator(observedData = trajectoryData, generatedData = genData, pathToResults = pathToResults, db = studyName)
 
   lrMatrix <- TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
 
   for (i in 1:9) {
-
     genData <- TrajectoryMarkovAnalysis::generateDataDiscrete(transitionMatrix = transistionMatrix,
                                                               n = nrPatients,
                                                               minDate = "1900-01-01",
                                                               maxDate = "2021-12-31",
-                                                              maxOut = 365, # TODO : Maximum days out of cohort
-                                                              stateDuration = 30, # TODO : state duration (time in days)
+                                                              stateDuration = 30,
                                                               pathToResults = pathToResults,
                                                               studyName = studyName)
     newLR <- TrajectoryMarkovAnalysis::compareTrajectoryDataLogRank(observedData = trajectoryData, generatedData = genData)
@@ -181,10 +179,13 @@ ParallelLogger::logInfo("The execution of the study has been successfully comple
 createResultsDirectory <- function(db, pathToResults){
   dir.create(paste(pathToResults,"/results",sep = ""))
   dir.create(paste(pathToResults,"/results/",db,sep = ""))
+  dir.create(paste(pathToResults,"/results/",db,"/KM",sep = ""))
 
   tmp.folder <- paste(pathToResults,"/tmp/databases/",db,sep = "")
   results.folder <- paste(pathToResults,"/results/",db,sep = "")
+  km.folder <- paste(pathToResults,"/results/",db,"/KM/",sep = "")
 
+  # Copying summarized data files
   list.of.files <- paste(tmp.folder, c("description.md",
                                        paste(db,"_discrete_transition_matrix.rdata",sep=""),
                                        paste(db,"_first_state_statistics.txt",sep=""),
@@ -195,6 +196,11 @@ createResultsDirectory <- function(db, pathToResults){
                                        paste(db,"sunburstPlot.rdata",sep="")), sep = "/")
 
   file.copy(list.of.files, results.folder)
+
+  # Copying KM plots
+
+  kmList = list.files(tmp.folder,pattern = paste("^",db,"KM", sep = ""), full.names = TRUE)
+  file.copy(kmList, paste(results.folder, "/KM",sep = ""))
 }
 
 
@@ -239,14 +245,13 @@ standardizeSunburstPlot <- function(db, pathToResults) {
   )
   saveRDS(plot, paste(
     pathToResults,
-    paste("/tmp/databases/",
+    "/tmp/databases/",
           db,
           "/",
           db,
           "sunburstPlot.rdata",
-          sep = ""),
-    sep = ""
-  ))
+          sep = "")
+  )
 
 }
 

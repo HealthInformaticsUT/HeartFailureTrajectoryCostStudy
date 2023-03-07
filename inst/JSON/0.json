@@ -475,7 +475,7 @@
     ],
     "ObservationWindow": {
       "PriorDays": 0,
-      "PostDays": 0
+      "PostDays": 1827
     },
     "PrimaryCriteriaLimit": {
       "Type": "First"

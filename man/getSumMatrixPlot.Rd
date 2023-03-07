@@ -4,12 +4,10 @@
 \alias{getSumMatrixPlot}
 \title{This function creates a heatmap plot from the transition matrices}
 \usage{
-getSumMatrixPlot(dbList, pathToResults)
+getSumMatrixPlot(motherMatrix)
 }
 \arguments{
-\item{dbList}{List of selected study databases}
-
-\item{pathToResults}{Path to target directory where results will be saved}
+\item{motherMatrix}{summarized matrix}
 }
 \description{
 This function creates a heatmap plot from the transition matrices

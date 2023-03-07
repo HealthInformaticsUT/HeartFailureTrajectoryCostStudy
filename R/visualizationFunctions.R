@@ -28,23 +28,67 @@ getMatrixPlot <- function(db, pathToResults) {
     col.order <- sort(colnames(M))
   }
   M <- M[col.order , col.order]
-  plot <- ggplotify::as.ggplot(
-    pheatmap::pheatmap(
-      M,
-      cluster_rows = F,
-      cluster_cols = F,
-      display_numbers = TRUE,
-      fontsize_number = 15,
-      number_format = '%.4f',
-      number_color = 'black',
-      color = grDevices::colorRampPalette(c('#FFFFFF', '#39ff14'))(100),
-      # main = db,
-      legend = FALSE
+    plot <- ggplotify::as.ggplot(
+      pheatmap::pheatmap(
+        M,
+        cluster_rows = F,
+        cluster_cols = F,
+        display_numbers = TRUE,
+        fontsize_number = 15,
+        number_format = '%.4f',
+        number_color = 'black',
+        color = grDevices::colorRampPalette(c('#FFFFFF', '#39ff14'))(100),
+        # main = db,
+        legend = FALSE
+      )
     )
-  )
   return(plot)
 }
 
+
+#' This function creates a deviation heatmap plot from the transition matrix
+#'
+#' @param db Name of the study
+#' @param pathToResults Path to target directory where results will be saved
+#' @keywords internal
+getMatrixDevPlot <- function(db, pathToResults, motherMatrix) {
+  M <- get(load(
+    paste(
+      pathToResults,
+      "/results/",
+      db,
+      "/HeartFailure_discrete_transition_matrix.rdata",
+      sep = ""
+    )
+  ))
+
+  if ("START" %in% colnames(M) & "EXIT" %in% colnames(M)) {
+    col.order <-
+      c("START", setdiff(sort(colnames(M)), c("START", "EXIT")), "EXIT")
+  }
+  else {
+    col.order <- sort(colnames(M))
+  }
+  M <- M[col.order , col.order]
+    M <- M - motherMatrix
+    values <- c(M)
+    colors <- grDevices::colorRampPalette(c("#1B00FF", "#FFFFFF" ,"#FF0000"))(99)
+    plot <- ggplotify::as.ggplot(
+      pheatmap::pheatmap(
+        M,
+        cluster_rows = F,
+        cluster_cols = F,
+        display_numbers = TRUE,
+        fontsize_number = 15,
+        number_format = '%.4f',
+        number_color = 'black',
+        color = colors,
+        breaks = seq(-1, 1, len = 100), # main = db,
+        legend = FALSE
+      )
+    )
+  return(plot)
+}
 
 #' This function creates a heatmap plot from the LogRank test matrix
 #'
@@ -61,6 +105,8 @@ getLRMatrixPlot <- function(db, pathToResults) {
       sep = ""
     )
   ))
+  M[M< 0.0001] <- 0.0001
+  M <- round(M,4)
 
   if ("START" %in% colnames(M) & "EXIT" %in% colnames(M)) {
     col.order <-
@@ -79,7 +125,7 @@ getLRMatrixPlot <- function(db, pathToResults) {
       fontsize_number = 15,
       number_format = '%.4f',
       number_color = 'black',
-      color = grDevices::colorRampPalette(c('#FF4E4E', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF'))(100),
+      color = grDevices::colorRampPalette(c('#FF4E4E','#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF','#FFFFFF','#FFFFFF'))(100),
       # main = db,
       legend = FALSE
     )
@@ -87,22 +133,22 @@ getLRMatrixPlot <- function(db, pathToResults) {
   return(plot)
 }
 
-#' This function creates a heatmap plot from the transition matrices
-#'
+
+#' This function calculates the motherMatrix
 #' @param dbList List of selected study databases
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
-getSumMatrixPlot <- function(dbList, pathToResults) {
+getMotherMatrix <- function(dbList, pathToResults) {
   M_list <- lapply(dbList, function(db)  {
     M <- get(load(
-    paste(
-      pathToResults,
-      "/results/",
-      db,
-      "/HeartFailure_discrete_transition_matrix.rdata",
-      sep = ""
-    )
-  ))
+      paste(
+        pathToResults,
+        "/results/",
+        db,
+        "/HeartFailure_discrete_transition_matrix.rdata",
+        sep = ""
+      )
+    ))
     if ("START" %in% colnames(M) & "EXIT" %in% colnames(M)) {
       col.order <-
         c("START", setdiff(sort(colnames(M)), c("START", "EXIT")), "EXIT")
@@ -132,10 +178,17 @@ getSumMatrixPlot <- function(dbList, pathToResults) {
 
   M_list <- mapply("*",M_list,personCounts,SIMPLIFY = FALSE)
   sup_M  <- Reduce("+", M_list)/totalPerson
+  return(sup_M)
+}
 
+#' This function creates a heatmap plot from the transition matrices
+#'
+#' @param motherMatrix summarized matrix
+#' @keywords internal
+getSumMatrixPlot <- function(motherMatrix) {
   plot <- ggplotify::as.grob(
     pheatmap::pheatmap(
-      sup_M,
+      motherMatrix,
       cluster_rows = F,
       cluster_cols = F,
       display_numbers = TRUE,
@@ -156,7 +209,6 @@ getSumMatrixPlot <- function(dbList, pathToResults) {
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
-
 getSunburstPlot <- function(db, pathToResults) {
   plot  <- readRDS(paste(
     pathToResults,
@@ -174,7 +226,6 @@ getSunburstPlot <- function(db, pathToResults) {
 #' @param databases Names of the studies selected
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
-
 getStateCostBarPlot <- function(databases, pathToResults) {
   costData <- data.frame()
   for (db in databases) {
@@ -322,8 +373,7 @@ getStateCostBarPlot <- function(databases, pathToResults) {
 #' @param databases Names of the studies selected
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
-
-getStateCostBarPlot <- function(databases, pathToResults) {
+getFirstStateCostBarPlot <- function(databases, pathToResults) {
 startData <- data.frame()
 for (db in databases) {
   tmpData <- read.delim(paste(
@@ -431,4 +481,94 @@ p <- ggpubr::ggarrange(p_cost,
                        p_paid,
                        ncol = 1)
 return(p)
+}
+
+
+#' This function creates a survival plot from the observed data vs generated data
+#'
+#' @param observedData The observed data
+#' @param generatedData The generated data
+#' @param pathToResults Path to target directory where results will be saved
+#' @keywords internal
+kmPlotGenerator <- function(observedData,generatedData,pathToResults, db) {
+  observedData$START_DATE <- as.Date(observedData$STATE_START_DATE)
+  generatedData$START_DATE <- as.Date(generatedData$STATE_START_DATE)
+  observedData$END_DATE <- as.Date(observedData$STATE_END_DATE)
+  generatedData$END_DATE <- as.Date(generatedData$STATE_END_DATE)
+  allStates <- sort(setdiff(unique(observedData$STATE), c("START", "EXIT")))
+  for (startCohortId in allStates) {
+    for (endCohortId in allStates) {
+      test_survival1 <- TrajectoryMarkovAnalysis::kmDataPreparation(
+        observedData,
+        startCohortId,
+        endCohortId,
+        ageInterval = 0,
+        selectedIntervals = NULL,
+        survivalType = "nearest"
+      )
+      test_survival2 <- TrajectoryMarkovAnalysis::kmDataPreparation(
+        generatedData,
+        startCohortId,
+        endCohortId,
+        ageInterval = 0,
+        selectedIntervals = NULL,
+        survivalType = "nearest"
+      )
+      if (nrow(test_survival1) == 0 |
+          nrow(test_survival2) == 0) {
+        next
+      }
+      test_survival1$GROUP <- "Observed"
+      test_survival2$GROUP <- "Generated"
+      test_survival_combined <-
+        rbind(test_survival1, test_survival2)
+      surv_object <-
+        survminer::surv_fit(survival::Surv(DATE, OUTCOME) ~ GROUP, data = test_survival_combined)
+
+      plot <- survminer::ggsurvplot(
+        surv_object,
+        data = test_survival_combined,
+        size = 1,
+        # change line size
+        palette =
+          c("#E7B800", "#2E9FDF"),
+        # custom color palettes
+        conf.int = TRUE,
+        # Add confidence interval
+        pval = FALSE,
+        xlim = c(0,2500),
+        # Add p-value
+        legend.labs =
+          c("Generated", "Observed"),
+        # Change legend labels
+        ggtheme = ggplot2::theme_bw(base_size = 10)      # Change ggplot2 theme
+      )
+      ggplot2::ggsave(
+        filename = paste(
+          pathToResults,
+          "/tmp/databases/",
+          db,
+          "/",
+          db,
+          "KM",
+          startCohortId,
+          "to",
+          endCohortId,
+          ".jpg",
+          sep = ""
+        )
+      )
+    }
+  }
+}
+
+#' This function creates a path to Kaplan-Meier plot image
+#'
+#' @param db Database name
+#' @param from Starting state id
+#' @param to Ending date id
+#' @keywords internal
+getKMPlotPath <- function(db, from, to) {
+  path <- paste(getwd(), "/results/", db, "/KM/HeartFailureKM", from, "to", to,".jpg", sep = "")
+  return(path)
 }

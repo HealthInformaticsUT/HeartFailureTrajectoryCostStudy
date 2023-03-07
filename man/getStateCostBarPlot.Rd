@@ -5,8 +5,6 @@
 \title{This function creates the combined state cost plots}
 \usage{
 getStateCostBarPlot(databases, pathToResults)
-
-getStateCostBarPlot(databases, pathToResults)
 }
 \arguments{
 \item{databases}{Names of the studies selected}
@@ -15,7 +13,5 @@ getStateCostBarPlot(databases, pathToResults)
 }
 \description{
 This function creates the combined state cost plots
-
-This function creates the combined trajectory cost plots in relation with patients' starting state
 }
 \keyword{internal}

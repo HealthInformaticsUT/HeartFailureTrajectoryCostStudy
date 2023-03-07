@@ -5,7 +5,7 @@
 ################################################################################
 
 # devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
-# devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2", upgrade = "always") # Run for installing release v1.0.2
+devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis", upgrade = "always", force = TRUE) # Run for installing release v1.0.2
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy")
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
@@ -16,7 +16,7 @@ library(HeartFailureTrajectoryCostStudy)
 
 studyName <- "HeartFailure" # TODO
 pathToResults <- getwd()   # TODO
-databaseDescription <- "" # TODO
+databaseDescription <- "A cool database with exceptional data ..." # TODO
 
 ################################################################################
 #
@@ -26,17 +26,16 @@ databaseDescription <- "" # TODO
 
 pathToDriver <- './Drivers'
 dbms <- "postgresql" #TODO
-user <- '' #TODO
+user <- "" #TODO
 pw <- "" #TODO
 server <- 'localhost/database' #TODO
 port <- '5432' #TODO
 
 cdmSchema <-
   "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
-cdmTmpSchema <-s
-  "ohdsi_temp" #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+cdmTmpSchema <-  "ohdsi_temp" #TODO # Schema for temporary tables
 cdmResultsSchema <-
-  "ohdsi_result" #TODO # Schema which will contain the final results
+  "ohdsi_results" #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -80,6 +79,6 @@ executeHeartFailureTrajectoryCostStudy(
 #
 ################################################################################
 
-# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovanalysis pack
+# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovAnalysis pack
 runDashboard(pathToResults = pathToResults)
 
