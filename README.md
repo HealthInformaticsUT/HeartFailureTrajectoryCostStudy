@@ -3,14 +3,14 @@ HeartFailureTrajectoryCostStudy
 
 Data Requirements
 =================
-OMOP CDM v 5.3.*
+OMOP CDM v 5.3.*, not tested on v 5.4.*
 
 Requirements for patients:
 1) Heart failure diagnosis
 2) Death data
 3) Populated cost table (optional)
 
-Results viewer http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/ . If you wish to participate run the study on your OMOP CDM & send the authors your results!
+Results viewer is [HERE](http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/). If you wish to participate run the study on your OMOP CDM & send the authors your results!
 
 Introduction
 ============
@@ -61,10 +61,10 @@ All of the patients have been divided into monthly states (state cohorts) which 
 5) HFD - the patient died during the ongoing month;
 
 We start with constructing the target cohort and after that the health states HF0, HF1, HF2, HF3 and HFD. Using the package *Cohort2Trajectory* we will construct trajectories for each patient showing their status monthly. The observation period of each patient is 5 years before the subject's death. That is 60 months, meaning that each patient will contribute to the Markov chain for 60 cycles.
-![Figure 1: Example of patient trajectories](./extras/PROTOCOL/traj1.png)
+![Figure 1: Example of patient trajectories](./resultsDashboard/www/images/traj1.png)
 The Markov chain's parameters (transition probabilities) will be calculated using the maximum likelihood estimation. This and the states' cost analysis will be conducted by the *TrajectoryMarkovAnalysis* package. The states costs will be queried from the OMOP CDM *cost* table. If the data partner has not populated the *cost* table they can still participate in the study contributing with the Markov chain parameters. Individually the packages output linear patient treatment trajectories and Markov chains with cost statistics respectively.
 
-![Figure 2: Example of Markov chains](./extras/PROTOCOL/traj2.png)
+![Figure 2: Example of Markov chains](./resultsDashboard/www/images/traj2.png)
 
 Technology
 ==========
@@ -99,4 +99,6 @@ HeartFailureTrajectoryCostStudy is being developed in R Studio.
 1. [Cohort2Trajectory package](https://github.com/HealthInformaticsUT/Cohort2Trajectory) by Markus Haug
 2. [TrajectoryMarkovAnalysis](https://github.com/HealthInformaticsUT/TrajectoryMarkovAnalysis) by Markus Haug
 3. [TrajectoryViz package](https://github.com/HealthInformaticsUT/TrajectoryViz) by Maarja Pajusalu
+
+Research group of Health-Informatics in University of Tartu https://health-informatics.cs.ut.ee/
 

@@ -4,9 +4,10 @@
 #
 ################################################################################
 
-# devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1", upgrade = "always")  # Run for installing release v1.1.1
-devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis", upgrade = "always", force = TRUE) # Run for installing release v1.0.2
+devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1")  # Run for installing release v1.1.1
+devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2") # Run for installing release v1.0.2
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy")
+
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
 #
@@ -14,9 +15,15 @@ library(HeartFailureTrajectoryCostStudy)
 #
 ################################################################################
 
+<<<<<<< HEAD
 studyName <- "HeartFailure" # TODO
 pathToResults <- getwd()   # TODO
 databaseDescription <- "A cool database with exceptional data ..." # TODO
+=======
+studyName <- "HeartFailure" # DO NOT CHANGE
+pathToResults <- getwd()   # DO NOT CHANGE
+databaseDescription <- "" # TODO
+>>>>>>> 21faa76d072fd17902f8a756ad64e9b3884b81aa
 
 ################################################################################
 #
@@ -25,17 +32,25 @@ databaseDescription <- "A cool database with exceptional data ..." # TODO
 ################################################################################
 
 pathToDriver <- './Drivers'
-dbms <- "postgresql" #TODO
-user <- "" #TODO
-pw <- "" #TODO
+dbms <- 'postgresql' #TODO
+user <- '' #TODO
+pw <- '' #TODO
 server <- 'localhost/database' #TODO
 port <- '5432' #TODO
 
 cdmSchema <-
+<<<<<<< HEAD
   "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
 cdmTmpSchema <-  "ohdsi_temp" #TODO # Schema for temporary tables
 cdmResultsSchema <-
   "ohdsi_results" #TODO # Schema which will contain the final results
+=======
+  'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
+cdmTmpSchema <-
+  'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+cdmResultsSchema <-
+  'ohdsi_result' #TODO # Schema which will contain the final results
+>>>>>>> 21faa76d072fd17902f8a756ad64e9b3884b81aa
 
 ################################################################################
 #
@@ -79,6 +94,5 @@ executeHeartFailureTrajectoryCostStudy(
 #
 ################################################################################
 
-# The pathToResults variable should point to the directory with subfolders tmp/databases/... which will be created as the result of running TrajectoryMarkovAnalysis pack
 runDashboard(pathToResults = pathToResults)
 
