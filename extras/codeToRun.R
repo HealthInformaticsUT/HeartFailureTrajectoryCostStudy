@@ -15,15 +15,9 @@ library(HeartFailureTrajectoryCostStudy)
 #
 ################################################################################
 
-<<<<<<< HEAD
-studyName <- "HeartFailure" # TODO
-pathToResults <- getwd()   # TODO
-databaseDescription <- "A cool database with exceptional data ..." # TODO
-=======
 studyName <- "HeartFailure" # DO NOT CHANGE
 pathToResults <- getwd()   # DO NOT CHANGE
 databaseDescription <- "" # TODO
->>>>>>> 21faa76d072fd17902f8a756ad64e9b3884b81aa
 
 ################################################################################
 #
@@ -38,19 +32,10 @@ pw <- '' #TODO
 server <- 'localhost/database' #TODO
 port <- '5432' #TODO
 
-cdmSchema <-
-<<<<<<< HEAD
-  "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
+cdmSchema <- "ohdsi_cdm" #TODO # Schema which contains the OHDSI Common Data Model
 cdmTmpSchema <-  "ohdsi_temp" #TODO # Schema for temporary tables
-cdmResultsSchema <-
-  "ohdsi_results" #TODO # Schema which will contain the final results
-=======
-  'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
-cdmTmpSchema <-
-  'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
-cdmResultsSchema <-
-  'ohdsi_result' #TODO # Schema which will contain the final results
->>>>>>> 21faa76d072fd17902f8a756ad64e9b3884b81aa
+cdmResultsSchema <- "ohdsi_results" #TODO # Schema which will contain the final results
+
 
 ################################################################################
 #
