@@ -429,42 +429,6 @@
           }
         ]
       }
-    },
-    {
-      "id": 6,
-      "name": "Telemonitoring",
-      "expression": {
-        "items": [
-          {
-            "concept": {
-              "CONCEPT_CLASS_ID": "HCPCS",
-              "CONCEPT_CODE": "S9110",
-              "CONCEPT_ID": 43533372,
-              "CONCEPT_NAME": "Telemonitoring of patient in their home, including all necessary equipment; computer system, connections, and software; maintenance; patient education and support; per month",
-              "DOMAIN_ID": "Procedure",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "VOCABULARY_ID": "HCPCS"
-            }
-          },
-          {
-            "concept": {
-              "CONCEPT_CLASS_ID": "HCPCS",
-              "CONCEPT_CODE": "S9109",
-              "CONCEPT_ID": 2721439,
-              "CONCEPT_NAME": "Congestive heart failure telemonitoring, equipment rental, including telescale, computer system and software, telephone connections, and maintenance, per month",
-              "DOMAIN_ID": "Procedure",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "VOCABULARY_ID": "HCPCS"
-            }
-          }
-        ]
-      }
     }
   ],
   "PrimaryCriteria": {
@@ -475,7 +439,7 @@
     ],
     "ObservationWindow": {
       "PriorDays": 0,
-      "PostDays": 1827
+      "PostDays": 0
     },
     "PrimaryCriteriaLimit": {
       "Type": "First"
@@ -584,54 +548,6 @@
             "Occurrence": {
               "Type": 2,
               "Count": 1
-            }
-          }
-        ],
-        "DemographicCriteriaList": [],
-        "Groups": []
-      }
-    },
-    {
-      "name": "Adult",
-      "expression": {
-        "Type": "ALL",
-        "CriteriaList": [],
-        "DemographicCriteriaList": [
-          {
-            "Age": {
-              "Value": 18,
-              "Op": "gte"
-            }
-          }
-        ],
-        "Groups": []
-      }
-    },
-    {
-      "name": "No telemonitoring",
-      "expression": {
-        "Type": "ALL",
-        "CriteriaList": [
-          {
-            "Criteria": {
-              "Observation": {
-                "CodesetId": 6
-              }
-            },
-            "StartWindow": {
-              "Start": {
-                "Days": 0,
-                "Coeff": -1
-              },
-              "End": {
-                "Days": 1827,
-                "Coeff": 1
-              },
-              "UseEventEnd": false
-            },
-            "Occurrence": {
-              "Type": 0,
-              "Count": 0
             }
           }
         ],
