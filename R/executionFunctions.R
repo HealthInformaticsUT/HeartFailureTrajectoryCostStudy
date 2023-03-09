@@ -9,6 +9,7 @@
 #' @param dbms Database management system
 #' @param connection DatabaseConnector object (connection)
 #' @param cdmSchema Schema where ohdsi cdm tables are located
+#' @param cdmVocabSchema Schema where ohdsi vocabulary tables are located
 #' @param cdmTmpSchema Schema where the authenticated user can create temporary tables
 #' @param cdmResultsSchema Schema where ohdsi result schemas are located
 #' @param studyName Name of the study
@@ -17,7 +18,7 @@
 #' @param runTrajectoryCreation Boolean for running the first part of analysis
 #' @export
 
-executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, cdmTmpSchema, cdmResultsSchema, studyName, pathToResults, databaseDescription, runTrajectoryCreation = TRUE){
+executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, cdmVocabSchema, cdmTmpSchema, cdmResultsSchema, studyName, pathToResults, databaseDescription, runTrajectoryCreation = TRUE){
   if(runTrajectoryCreation) {
   stateCohortLabels <- c("HF0", "HF1", "HF2", "HF3", "HFD")
   allowedStatesList <-
@@ -51,6 +52,7 @@ executeHeartFailureTrajectoryCostStudy <- function(dbms, connection, cdmSchema, 
     dbms = dbms,
     connection = connection,
     cdmSchema = cdmSchema,
+    cdmVocabSchema = cdmVocabSchema,
     cdmTmpSchema = cdmTmpSchema,
     cdmResultsSchema = cdmResultsSchema,
     studyName = studyName,

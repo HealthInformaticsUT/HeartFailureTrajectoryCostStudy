@@ -8,6 +8,7 @@ executeHeartFailureTrajectoryCostStudy(
   dbms,
   connection,
   cdmSchema,
+  cdmVocabSchema,
   cdmTmpSchema,
   cdmResultsSchema,
   studyName,
@@ -22,6 +23,8 @@ executeHeartFailureTrajectoryCostStudy(
 \item{connection}{DatabaseConnector object (connection)}
 
 \item{cdmSchema}{Schema where ohdsi cdm tables are located}
+
+\item{cdmVocabSchema}{Schema where ohdsi vocabulary tables are located}
 
 \item{cdmTmpSchema}{Schema where the authenticated user can create temporary tables}
 

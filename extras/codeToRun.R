@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.1")  # Run for installing release v1.1.1
+devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.2")  # Run for installing release v1.1.1
 devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2") # Run for installing release v1.0.2
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy@v1.0.0") # Run for installing release v1.0.0
 
@@ -34,6 +34,8 @@ port <- '5432' #TODO
 
 cdmSchema <-
   'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
+cdmVocabSchema <-
+  'ohdsi_vocab' #TODO # Schema which contains the OHDSI Common Data Model vocabulary tables
 cdmTmpSchema <-
   'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
@@ -67,6 +69,7 @@ executeHeartFailureTrajectoryCostStudy(
   dbms = dbms,
   connection = connection,
   cdmSchema = cdmSchema,
+  cdmVocabSchema = cdmVocabSchema,
   cdmTmpSchema = cdmTmpSchema,
   cdmResultsSchema = cdmResultsSchema,
   studyName = studyName,
