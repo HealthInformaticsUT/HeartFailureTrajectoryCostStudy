@@ -5,8 +5,9 @@
 ################################################################################
 
 devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.2")  # Run for installing release v1.1.1
-devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2") # Run for installing release v1.0.2
+devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.3") # Run for installing release v1.0.2
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy") # Run for downloading from master
+.rs.restartR() # Restart R after installation
 
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
