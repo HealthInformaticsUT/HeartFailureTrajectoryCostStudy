@@ -51,7 +51,7 @@ createDemographicsTable <- function(pathToResults, studyName) {
       age = mean(AGE, na.rm = TRUE)
     )$age, 1)
   trajData.age <-
-    stats::quantile(trajData.age, probs = c(0, 0.25, 0.5, 0.75, 1))
+    stats::quantile(trajData.age, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm =TRUE)
   trajData.size <- sum(trajData.gender$n)
 
   data <- cbind(data, t(data.frame(
