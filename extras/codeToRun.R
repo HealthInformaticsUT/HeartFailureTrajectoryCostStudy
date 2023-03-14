@@ -5,8 +5,9 @@
 ################################################################################
 
 devtools::install_github("HealthInformaticsUT/Cohort2Trajectory@v1.1.2")  # Run for installing release v1.1.1
-devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.2") # Run for installing release v1.0.2
+devtools::install_github("HealthInformaticsUT/TrajectoryMarkovAnalysis@v1.0.3")
 devtools::install_github("HealthInformaticsUT/HeartFailureTrajectoryCostStudy") # Run for downloading from master
+.rs.restartR()
 
 library(HeartFailureTrajectoryCostStudy)
 ################################################################################
@@ -27,19 +28,19 @@ databaseDescription <- '' # TODO
 
 pathToDriver <- './Drivers'
 dbms <- 'postgresql' #TODO
-user <- '' #TODO
-pw <- '' #TODO
-server <- 'localhost/database' #TODO
-port <- '5432' #TODO
+user <- 'markus' #TODO
+pw <- 'Konrad2021' #TODO
+server <- 'localhost/maitt' #TODO
+port <- '63333' #TODO
 
 cdmSchema <-
-  'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
+  'ohdsi_cdm_202207' #TODO # Schema which contains the OHDSI Common Data Model
 cdmVocabSchema <-
-  'ohdsi_vocab' #TODO # Schema which contains the OHDSI Common Data Model vocabulary tables
+  'ohdsi_cdm_202207' #TODO # Schema which contains the OHDSI Common Data Model vocabulary tables
 cdmTmpSchema <-
-  'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+  'user_markus' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  'ohdsi_result' #TODO # Schema which will contain the final results
+  'ohdsi_result_202207' #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -75,7 +76,7 @@ executeHeartFailureTrajectoryCostStudy(
   studyName = studyName,
   pathToResults = pathToResults,
   databaseDescription = databaseDescription,
-  runTrajectoryCreation = TRUE
+  runTrajectoryCreation = FALSE
 )
 
 ################################################################################
