@@ -19,7 +19,7 @@ library(HeartFailureTrajectoryCostStudy)
 
 studyName <- 'HeartFailure' # DO NOT CHANGE
 pathToResults <- getwd()   # DO NOT CHANGE
-databaseDescription <- '' # TODO
+databaseDescription <- 'Some info about your database. Observation period of patients, data sources' # TODO
 
 ################################################################################
 #
