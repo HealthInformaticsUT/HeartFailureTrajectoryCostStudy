@@ -29,19 +29,19 @@ databaseDescription <- '' # TODO
 
 pathToDriver <- './Drivers'
 dbms <- 'postgresql' #TODO
-user <- 'markus' #TODO
-pw <- 'Konrad2021' #TODO
-server <- 'localhost/maitt' #TODO
-port <- '63333' #TODO
+user <- 'user' #TODO
+pw <- 'password' #TODO
+server <- 'localhost/database' #TODO
+port <- '5432' #TODO
 
 cdmSchema <-
-  'ohdsi_cdm_202207' #TODO # Schema which contains the OHDSI Common Data Model
+  'ohdsi_cdm' #TODO # Schema which contains the OHDSI Common Data Model
 cdmVocabSchema <-
-  'ohdsi_cdm_202207' #TODO # Schema which contains the OHDSI Common Data Model vocabulary tables
+  'ohdsi_vocab' #TODO # Schema which contains the OHDSI Common Data Model vocabulary tables
 cdmTmpSchema <-
-  'user_markus' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
+  'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  'ohdsi_result_202207' #TODO # Schema which will contain the final results
+  'ohdsi_result' #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -77,7 +77,7 @@ executeHeartFailureTrajectoryCostStudy(
   studyName = studyName,
   pathToResults = pathToResults,
   databaseDescription = databaseDescription,
-  runTrajectoryCreation = FALSE
+  runTrajectoryCreation = TRUE
 )
 
 ################################################################################
