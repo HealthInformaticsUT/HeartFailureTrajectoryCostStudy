@@ -80,7 +80,7 @@ For running the package with OMOP CDM, the user must have:
 Getting Started
 ===============
 
-Study protocol: [HeartFailureTrajectoryCostStudy](https://github.com/HealthInformaticsUT/HeartFailureTrajectoryCostStudy/blob/main/PROTOCOL.html)
+Study protocol: [HeartFailureTrajectoryCostStudy](https://haugmarkus.github.io/HeartFailureTrajectoryCostStudy/)
 
 Execution code: [codeToRun.R](https://github.com/HealthInformaticsUT/HeartFailureTrajectoryCostStudy/blob/main/extras/codeToRun.R)
 
