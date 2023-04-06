@@ -277,42 +277,42 @@ removeTempTables <- function(connection, dbms, cdmTmpSchema){
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
   #heartfailure_censor_stats
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_censor_stats CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure_censor_stats CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
   #heartfailure_inclusion
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure_inclusion CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
   #heartfailure_inclusion_result
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion_result CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure_inclusion_result CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
   #heartfailure_inclusion_stats
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_inclusion_stats CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure_inclusion_stats CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
   #heartfailure_summary_stats
   DatabaseConnector::executeSql(connection,
                                 SqlRender::translate(
                                   targetDialect = dbms,
-                                  sql = SqlRender::render(sql = "DROP TABLE IF EXISTS @cdmTmpSchema.heartfailure_summary_stats CASCADE",
+                                  sql = SqlRender::render(sql = "IF OBJECT_ID('table', 'U') IS NOT NULL DROP TABLE @cdmTmpSchema.heartfailure_summary_stats CASCADE;",
                                                           cdmTmpSchema = cdmTmpSchema)
                                 ))
 
