@@ -450,7 +450,9 @@
     "CriteriaList": [
       {
         "Criteria": {
-          "Death": {}
+          "ConditionOccurrence": {
+            "CodesetId": 2
+          }
         },
         "StartWindow": {
           "Start": {
@@ -458,7 +460,6 @@
             "Coeff": -1
           },
           "End": {
-            "Days": 1827,
             "Coeff": 1
           },
           "UseEventEnd": false
@@ -478,95 +479,8 @@
   "ExpressionLimit": {
     "Type": "First"
   },
-  "InclusionRules": [
-    {
-      "name": "Death",
-      "expression": {
-        "Type": "ALL",
-        "CriteriaList": [
-          {
-            "Criteria": {
-              "Death": {}
-            },
-            "StartWindow": {
-              "Start": {
-                "Coeff": -1
-              },
-              "End": {
-                "Coeff": 1
-              },
-              "UseEventEnd": false
-            },
-            "Occurrence": {
-              "Type": 2,
-              "Count": 1
-            }
-          },
-          {
-            "Criteria": {
-              "VisitOccurrence": {
-                "CorrelatedCriteria": {
-                  "Type": "ALL",
-                  "CriteriaList": [
-                    {
-                      "Criteria": {
-                        "ConditionOccurrence": {
-                          "CodesetId": 5
-                        }
-                      },
-                      "StartWindow": {
-                        "Start": {
-                          "Coeff": -1
-                        },
-                        "End": {
-                          "Coeff": 1
-                        },
-                        "UseEventEnd": false
-                      },
-                      "RestrictVisit": true,
-                      "Occurrence": {
-                        "Type": 2,
-                        "Count": 1
-                      }
-                    }
-                  ],
-                  "DemographicCriteriaList": [],
-                  "Groups": []
-                },
-                "CodesetId": 4
-              }
-            },
-            "StartWindow": {
-              "Start": {
-                "Coeff": -1
-              },
-              "End": {
-                "Coeff": 1
-              },
-              "UseEventEnd": false
-            },
-            "Occurrence": {
-              "Type": 2,
-              "Count": 1
-            }
-          }
-        ],
-        "DemographicCriteriaList": [],
-        "Groups": []
-      }
-    }
-  ],
-  "EndStrategy": {
-    "DateOffset": {
-      "DateField": "StartDate",
-      "Offset": 1827
-    }
-  },
-  "CensoringCriteria": [
-    {
-      "Death": {}
-    }
-  ],
+  "InclusionRules": [],
+  "CensoringCriteria": [],
   "CollapseSettings": {
     "CollapseType": "ERA",
     "EraPad": 0

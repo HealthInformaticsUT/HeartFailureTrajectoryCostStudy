@@ -29,9 +29,9 @@ databaseDescription <- 'Some info about your database. Observation period of pat
 
 pathToDriver <- './Drivers'
 dbms <- 'postgresql' #TODO
-user <- 'user' #TODO
-pw <- 'password' #TODO
-server <- 'localhost/database' #TODO
+user <- '' #TODO
+pw <- '' #TODO
+server <- 'serverIP/database' #TODO
 port <- '5432' #TODO
 
 cdmSchema <-
@@ -41,7 +41,7 @@ cdmVocabSchema <-
 cdmTmpSchema <-
   'ohdsi_temp' #TODO # Schema for temporary tables, will be deleted # should be ohdsi_temp
 cdmResultsSchema <-
-  'ohdsi_result' #TODO # Schema which will contain the final results
+  'ohdsi_results' #TODO # Schema which will contain the final results
 
 ################################################################################
 #
@@ -79,7 +79,7 @@ executeHeartFailureTrajectoryCostStudy(
   databaseDescription = databaseDescription,
   runTrajectoryCreation = TRUE
 )
-
+sink()
 ################################################################################
 #
 # Run dashboard
