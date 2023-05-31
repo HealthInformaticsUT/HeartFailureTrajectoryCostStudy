@@ -2,7 +2,7 @@
 % Please edit documentation in R/visualizationFunctions.R
 \name{getMatrixPlot}
 \alias{getMatrixPlot}
-\title{This function creates a heatmap plot from the transition matrix}
+\title{This function creates a heatmap plot from the transition matrix#'}
 \usage{
 getMatrixPlot(db, pathToResults)
 }
@@ -12,6 +12,6 @@ getMatrixPlot(db, pathToResults)
 \item{pathToResults}{Path to target directory where results will be saved}
 }
 \description{
-This function creates a heatmap plot from the transition matrix
+This function creates a heatmap plot from the transition matrix#'
 }
 \keyword{internal}

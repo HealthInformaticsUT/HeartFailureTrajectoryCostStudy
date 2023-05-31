@@ -31,7 +31,7 @@ pathToDriver <- './Drivers'
 dbms <- 'postgresql' #TODO
 user <- '' #TODO
 pw <- '' #TODO
-server <- 'serverIP/database' #TODO
+server <- 'localhost/database' #TODO
 port <- '5432' #TODO
 
 cdmSchema <-
@@ -79,7 +79,6 @@ executeHeartFailureTrajectoryCostStudy(
   databaseDescription = databaseDescription,
   runTrajectoryCreation = TRUE
 )
-sink()
 ################################################################################
 #
 # Run dashboard

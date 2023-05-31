@@ -4,8 +4,7 @@
 #
 ################################################################################
 
-#' This function creates a heatmap plot from the transition matrix
-#'
+#' This function creates a heatmap plot from the transition matrix#'
 #' @param db Name of the study
 #' @param pathToResults Path to target directory where results will be saved
 #' @keywords internal
@@ -495,7 +494,7 @@ kmPlotGenerator <- function(observedData,generatedData,pathToResults, db) {
   generatedData$START_DATE <- as.Date(generatedData$STATE_START_DATE)
   observedData$END_DATE <- as.Date(observedData$STATE_END_DATE)
   generatedData$END_DATE <- as.Date(generatedData$STATE_END_DATE)
-  allStates <- sort(setdiff(unique(observedData$STATE), c("START", "EXIT")))
+  allStates <- sort(setdiff(unique(observedData$STATE_LABEL), c("START", "EXIT")))
   for (startCohortId in allStates) {
     for (endCohortId in allStates) {
       test_survival1 <- TrajectoryMarkovAnalysis::kmDataPreparation(

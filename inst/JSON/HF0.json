@@ -502,7 +502,7 @@
       "PostDays": 0
     },
     "PrimaryCriteriaLimit": {
-      "Type": "All"
+      "Type": "First"
     }
   },
   "QualifiedLimit": {
@@ -512,36 +512,7 @@
     "Type": "All"
   },
   "InclusionRules": [],
-  "CensoringCriteria": [
-    {
-      "ConditionOccurrence": {
-        "CodesetId": 5,
-        "VisitType": [
-          {
-            "CONCEPT_CODE": "IP",
-            "CONCEPT_ID": 9201,
-            "CONCEPT_NAME": "Inpatient Visit",
-            "DOMAIN_ID": "Visit",
-            "INVALID_REASON_CAPTION": "Unknown",
-            "STANDARD_CONCEPT_CAPTION": "Unknown",
-            "VOCABULARY_ID": "Visit"
-          },
-          {
-            "CONCEPT_CODE": "OP",
-            "CONCEPT_ID": 9202,
-            "CONCEPT_NAME": "Outpatient Visit",
-            "DOMAIN_ID": "Visit",
-            "INVALID_REASON_CAPTION": "Unknown",
-            "STANDARD_CONCEPT_CAPTION": "Unknown",
-            "VOCABULARY_ID": "Visit"
-          }
-        ]
-      }
-    },
-    {
-      "Death": {}
-    }
-  ],
+  "CensoringCriteria": [],
   "CollapseSettings": {
     "CollapseType": "ERA",
     "EraPad": 31
