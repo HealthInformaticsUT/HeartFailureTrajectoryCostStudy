@@ -495,7 +495,7 @@ kmPlotGenerator <- function(observedData,generatedData,pathToResults, db) {
   generatedData$START_DATE <- as.Date(generatedData$STATE_START_DATE)
   observedData$END_DATE <- as.Date(observedData$STATE_END_DATE)
   generatedData$END_DATE <- as.Date(generatedData$STATE_END_DATE)
-  allStates <- sort(setdiff(unique(observedData$STATE), c("START", "EXIT")))
+  allStates <- sort(setdiff(unique(observedData$STATE_LABEL), c("START", "EXIT")))
   for (startCohortId in allStates) {
     for (endCohortId in allStates) {
       test_survival1 <- TrajectoryMarkovAnalysis::kmDataPreparation(
