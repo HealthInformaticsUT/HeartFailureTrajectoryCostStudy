@@ -7,7 +7,7 @@ OMOP CDM v 5.3.\*, not tested on v 5.4.\*
 
 Requirements for patients:
 1) Heart failure diagnosis
-2) Death data
+2) Death data (if no death data present, run the NoDeathData branch)
 3) Populated cost table (optional)
 
 Results viewer is [HERE](http://omop-apps.cloud.ut.ee/ShinyApps/HeartFailureTrajectoryCostStudyViewer/). If you wish to participate run the study on your OMOP CDM & send the authors your results!
