@@ -151,6 +151,8 @@ server <- function(input, output, session) {
             c(
               "Standard of care (€)",
               "Alternative care (€)",
+              "SoC QALYs",
+              "Alternative care QALYs",
               "ICER (€/QALY)"
             )
           )
@@ -179,6 +181,8 @@ server <- function(input, output, session) {
             c(
               "Standard of care (€)",
               "Alternative care (€)",
+              "SoC QALYs",
+              "Alternative care QALYs",
               "ICER (€/QALY)"
             )
           )

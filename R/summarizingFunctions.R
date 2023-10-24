@@ -142,14 +142,17 @@ monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, 
   # Computing
   require(expm)
   matComp <- function(v,cost,power,M){
-    out <- 0
+    out_cost <- 0
+    out_qaly <- 0
+    qaly <- c(0.588,0.523,0.457,0.392,0)/12
     M_temp <- as.matrix(M)
     v_temp <- v
     for (i in 1:power) {
       v_temp <- v_temp%*%(as.matrix(M) %^% i)
-      out <- out + sum(v_temp*cost)
+      out_cost <- out_cost + sum(v_temp*cost)
+      out_qaly <- out_qaly + sum(v_temp*qaly)
     }
-    return(out)
+    return(list(out_cost, out_qaly))
   }
   costData <- utils::read.csv(paste(
     pathToResults,
@@ -162,7 +165,7 @@ monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, 
   rownames(costData) <- costData$STATE
 
   costStandardCare <- c(costData["HF0", "MEAN.CHARGE"], costData["HF1", "MEAN.CHARGE"], costData["HF2", "MEAN.CHARGE"], costData["HF3", "MEAN.CHARGE"], costData["HFD", "MEAN.CHARGE"])*30
-  costAlternative <- costStandardCare + 480.22
+  costAlternative <- costStandardCare + 338.46
   # When patient is dead it does not make sense to keep adding cost data, therefore we equal death state cost with 0
   costStandardCare[5] <- 0
   costAlternative[5] <- 0
@@ -170,31 +173,36 @@ monetaryAnalysis <- function(pathToResults, costStudyName, transitionStudyName, 
   v <- c(1,0,0,0,0)
   # Calculating costs
   # Death state cost has to be added once in the end to the cost
-  trajectoryTotalCostStandard <- matComp(v = v, cost = costStandardCare, power = 60, M = M) + costData["HFD", "MEAN.CHARGE"]
-  trajectoryTotalCostAlternative <- matComp(v = v, cost = costAlternative, power = 60, M = TM) + costData["HFD", "MEAN.CHARGE"]
-  qualyDifference <- 0.075 # Value from the study of Thokala et al.
-  ICER <- (trajectoryTotalCostAlternative-trajectoryTotalCostStandard)/qualyDifference
+  standardCare <- matComp(v = v, cost = costStandardCare, power = 60, M = M)
+  alternativeCare <- matComp(v = v, cost = costAlternative, power = 60, M = TM)
+  trajectoryTotalCostStandard <- round(standardCare[[1]] + costData["HFD", "MEAN.CHARGE"]*30,2)
+  trajectoryTotalCostAlternative <- round(alternativeCare[[1]] + costData["HFD", "MEAN.CHARGE"]*30,2)
+  # Calculating the ICER
+  ICER <- (trajectoryTotalCostAlternative-trajectoryTotalCostStandard)/(alternativeCare[[2]]-standardCare[[2]])
   data <-
     data.frame(c(
       "Standard of care",
       "Alternative care",
+      "SoC QALYs",
+      "Alternative care QALYs",
       "ICER"
     ))
-  data <- cbind(data, t(data.frame(trajectoryTotalCostStandard, trajectoryTotalCostAlternative, ICER)))
+  data <- cbind(data, t(data.frame(trajectoryTotalCostStandard, trajectoryTotalCostAlternative, round(standardCare[[2]],5), round(alternativeCare[[2]],5), ICER)))
 
   rownames(data) <- 1:nrow(data)
   colnames(data) <- c("DESCRIPTIVE FEATURE", transitionStudyName)
 
   if(save) {
-  saveRDS(
-    data,
-    file = paste(
-      pathToResults,
-      "/tmp/databases/",
-      transitionStudyName,
-      '/HeartFailuremonetaryData.rdata',
-      sep = ""
-    )
-  )} else {return(data)}
+    saveRDS(
+      data,
+      file = paste(
+        pathToResults,
+        "/tmp/databases/",
+        transitionStudyName,
+        '/HeartFailuremonetaryData.rdata',
+        sep = ""
+      )
+    )} else {return(data)}
 }
+
 
